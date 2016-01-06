@@ -47,15 +47,20 @@ public class ParticipantEvents {
 	}
 	public void setPresence(int presence) {
 		this.presence = presence;
+		switch (presence) {
+		 case 1 :
+			 presenceString = "Present(e)";
+			 break;
+		 case 0 :
+			 presenceString = "Absent(e)";
+			 break;
+		 case -1:
+			 presenceString = "n/a";	
+			 break;
+		} 
 	}
 	
 	public String getPresenceString (){
-		if (presence == 1)
-			presenceString = "Present(e)";
-		if (presence == 0)
-			presenceString = "Absent(e)";
-		if (presence == 2) 
-			presenceString = "n/a";
        	return presenceString;
 	}
 
@@ -66,9 +71,5 @@ public class ParticipantEvents {
 	public void setIdEvent(int idEvent) {
 		this.idEvent = idEvent;
 	}
-	
-	
-    
-    
-    
+
 }

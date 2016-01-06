@@ -72,27 +72,21 @@ public class User {
 	}
 
 	public void setStatut(int statut) {
-		Statut = statut;
+		this.Statut = statut;	
+		switch (statut) {
+		case -1:
+			StatutString = "Inactif";
+	    	break;
+		case 0:
+			StatutString = "Desactivee";
+		    break;
+		case 1:
+			StatutString = "Actif";
+	     	break;
+	   }
 	}
 
 	public String getStatutString() {
-		switch (Statut) {
-			case -1:
-				StatutString = "Inactif";
-		    	break;
-			case 0:
-				StatutString = "Desactivee";
-			    break;
-			case 1:
-				StatutString = "Actif";
-		     	break;
-		}
 		return StatutString;
 	}
-
-	public void setStatutString(String statutString) {
-		StatutString = statutString;
-	}
-	
-	
 }

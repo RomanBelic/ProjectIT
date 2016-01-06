@@ -61,17 +61,16 @@ public class XMLWriter_simple {
 		for (Field f : fields) {
 			f.setAccessible(true);
 				try {
-					if (f.getType() == String.class || f.getType() == Integer.class || 
-						f.getType() == Float.class || f.getType() == Character.class ||
-						f.getType() == Date.class || f.getType() == Boolean.class) {
+				    if (f.getType().isPrimitive() || f.getType() == String.class) {
 						Object val = f.get(o);
-						hmap.put(f.getName(), val.toString());
-					}
+						hmap.put(f.getName(), val+"");
+				    }
 				} 
 				catch (IllegalArgumentException | IllegalAccessException e) {e.printStackTrace();}
 		}
 		return hmap; 
 	}
+	
 	
 	private void LoadList () {
 		
@@ -86,6 +85,10 @@ public class XMLWriter_simple {
         
         if (wrapper instanceof AssociationEvent) {
           	lstDat.add(generateData((AssociationEvent) wrapper));
+          	
+          	for (ParticipantEvents p : (((AssociationEvent) wrapper)).lstParticipant) {
+          		lstDat.add(generateData (p));
+          	}
         }
         
         if (wrapper instanceof FicheParticipant) {
@@ -106,9 +109,11 @@ public class XMLWriter_simple {
         if (wrapper instanceof User) {
           	lstDat.add(generateData((User) wrapper));
         	lstDat.add(generateData(((User) wrapper).type));
-        }
-        
-		
+        	
+          	for (Association a : (((User) wrapper)).assoc) {
+          		lstDat.add(generateData (a));
+          	}
+        } 
 	}
 	
 	public String generateFile ()  {
@@ -180,14 +185,27 @@ public class XMLWriter_simple {
 		}
 
 	public static void main(String argv[]) { 
+		
 		Association a = new Association ();
 		a.setId(1);
-		a.setLibelle("assoc 1");
-		a.desc.setDescription("desc");
-		a.desc.setId(1);
-		a.desc.setNomAssoc("assoc 1");
+		a.setLibelle("test");
+
+		AssociationEvent as = new AssociationEvent ();
+		as.setId(1);
+		ParticipantEvents p = new ParticipantEvents ();
+		p.setIdAssoc(1);
+		p.setIdUser(2);
+		p.setPresence(1);
+		p.setIdEvent(1);
+		p.utilisateur.setAdresse("test");
+		p.userType.setId(1);
+		p.utilisateur.setNom("test");
+
+		as.lstParticipant.add(p);
+		as.lstParticipant.add(p);
+		as.lstParticipant.add(p);
 		
-		XMLWriter_simple writer =  new XMLWriter_simple (a);
+		XMLWriter_simple writer =  new XMLWriter_simple (as);
 		writer.generateFile();
 		
 	}
