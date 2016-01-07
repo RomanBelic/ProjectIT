@@ -5,7 +5,7 @@ import com.itparis.b3.associations.common.Table.*;
  * Contient les Requetes parametrees
  * */
 
-public class DB {
+public final class DB {
 	
 	public static final String DBNULLVALUE = "NULL";
 	public static final String DBNAME = "dbassociations";
