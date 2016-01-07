@@ -16,37 +16,29 @@ public final class GestConnexion {
 	 */
 	
 	private static Connection con = null;
-	private static PreparedStatement pst = null;
 	private static Statement st = null;
 		
-	public static Statement GetStatement ()  {
-		//Connection con = null;
-		//Statement st = null;
+	public static Statement getStatement (Class <? extends Statement> cls, String preparedQuery){
 		try {
 			con = Connexion.getConnection();
-			st = con.createStatement();
+			
+			if (cls.getName() == PreparedStatement.class.getName()) {
+	            st = (PreparedStatement) con.prepareStatement(preparedQuery);
+	            return st;
+			}
+			if (cls.getName() == Statement.class.getName()) {
+				st = (Statement) con.createStatement();
+				return st;
+			}
 		}
-		catch (Exception e){e.getMessage();e.printStackTrace();}
-	   return st;
-	}
-	
-	public static Statement GetPreparedStatement (String req)  {
-		//Connection con = null;
-		//PreparedStatement pst = null;
-		try {
-			con = Connexion.getConnection();
-			pst = con.prepareStatement(req);
-		}
-		catch (Exception e){e.getMessage();e.printStackTrace();}
-	   return pst;
+		catch (Exception e) {}
+	return st;
 	}
 	
 	public static void CloseConnection () {
 		try {
 		if (st != null)
 			st.close();
-		if (pst != null)
-			pst.close();
 		if (con != null)
 			con.close();
 		}
