@@ -27,13 +27,8 @@ public class User {
 	private int Statut;
 	private String StatutString;
 	
-	public List<Association> assoc;
-	public TypeUser type;
-	
-	public User () {
-		type = new TypeUser ();
-		assoc = new ArrayList<Association>();
-	}
+	public List<Association> assoc =  new ArrayList<Association>();
+	public TypeUser type = new TypeUser ();
 	
 	public String getNom() {
 		return Nom;

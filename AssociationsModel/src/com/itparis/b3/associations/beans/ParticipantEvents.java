@@ -22,13 +22,8 @@ public class ParticipantEvents {
     private int idEvent;
     private String presenceString;
 
-    public User utilisateur;
-    public TypeUser userType;
-    
-    public ParticipantEvents () {
-    	utilisateur = new User ();
-    	userType = new TypeUser();
-    }
+    public User utilisateur = new User ();
+    public TypeUser userType = new TypeUser();
     
 	public int getIdAssoc() {
 		return idAssoc;

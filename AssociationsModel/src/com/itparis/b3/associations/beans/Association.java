@@ -14,11 +14,7 @@ public class Association {
 	private int    id;
 	private String Libelle;
 	
-	public AssociationDesc desc;
-	
-	public Association () {
-		desc = new AssociationDesc();
-	}
+	public AssociationDesc desc = new AssociationDesc();
 	
 	public int getId() {
 		return id;

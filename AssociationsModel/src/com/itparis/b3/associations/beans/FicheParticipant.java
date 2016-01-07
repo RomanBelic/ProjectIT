@@ -25,11 +25,7 @@ public class FicheParticipant {
 	private String dateDesinscription;
 	private String notes;
 	
-	public User utilisateur;
-	
-	public FicheParticipant () {
-		utilisateur = new User ();
-	}
+	public User utilisateur =  new User ();
 	
 	public int getId() {
 		return id;

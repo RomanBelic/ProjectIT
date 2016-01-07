@@ -25,11 +25,7 @@ public class AssociationEvent {
     private String libelleEvent;
     private String descEvent;
     
-    public List<ParticipantEvents> lstParticipant;
-    
-    public AssociationEvent () {
-    	lstParticipant = new ArrayList<ParticipantEvents>();
-    }
+    public List<ParticipantEvents> lstParticipant = new ArrayList<ParticipantEvents>();
     
 	public int getId() {
 		return id;
