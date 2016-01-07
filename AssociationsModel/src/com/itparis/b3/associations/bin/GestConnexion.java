@@ -45,10 +45,4 @@ public final class GestConnexion {
 		}
 		catch (Exception e){e.getMessage();e.printStackTrace();}
 	}
-	
-	public static void main (String [] args ) {
-
-	}
-	
-	
 }

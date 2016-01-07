@@ -38,7 +38,7 @@ public class XMLWriter_simple {
 	private String descGen = "";
 	private Object wrapper;
 	private List<HashMap<String,String>> lstDat =  new ArrayList<HashMap<String,String>>();
-  	private ArrayList <String> lstNames =  new ArrayList <String>();
+  	private List <String> lstNames =  new ArrayList <String>();
 	
 	public XMLWriter_simple (Object o) {
 		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
@@ -180,32 +180,5 @@ public class XMLWriter_simple {
 		  }
 		  return fname;
 		}
-
-	public static void main(String argv[]) { 
-		
-		Association a = new Association ();
-		a.setId(1);
-		a.setLibelle("test");
-
-		AssociationEvent as = new AssociationEvent ();
-		as.setId(1);
-		ParticipantEvents p = new ParticipantEvents ();
-		p.setIdAssoc(1);
-		p.setIdUser(2);
-		p.setPresence(1);
-		p.setIdEvent(1);
-		p.utilisateur.setAdresse("test");
-		p.userType.setId(1);
-		p.utilisateur.setNom("test");
-
-		as.lstParticipant.add(p);
-		as.lstParticipant.add(p);
-		as.lstParticipant.add(p);
-		
-		XMLWriter_simple writer =  new XMLWriter_simple (as);
-		writer.generateFile();
-		
-		
-	}
 }
 
