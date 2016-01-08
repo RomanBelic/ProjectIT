@@ -86,6 +86,12 @@ public final class DB {
 				" "+Utilisateurs.alias+".id,"+Utilisateurs.alias+".Statut"+ 
 				" FROM " +Utilisateurs+" "+Utilisateurs.alias +
 				" Where 1=1 ";
+		
+		public static final String DeleteUserPQuery = 
+				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ";
+				
+		
+				
 
 		
 		

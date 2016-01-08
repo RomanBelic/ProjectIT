@@ -18,7 +18,7 @@ public final class GestConnexion {
 	private static Connection con = null;
 	private static Statement st = null;
 	
-	public static Statement  getStatement (){
+	public static Statement getStatement (){
 		try {
 			con = Connexion.getConnection();
 			st = con.createStatement();

@@ -93,6 +93,7 @@ public class Utilities {
 		}
 		if (o instanceof Authentification){
 			((Authentification)o).setLog(errCode+"");
+			((Authentification)o).setPass(errCode+"");
 			((Authentification)o).setIdUser(errCode);
 		}
 		if (o instanceof FicheParticipant){
