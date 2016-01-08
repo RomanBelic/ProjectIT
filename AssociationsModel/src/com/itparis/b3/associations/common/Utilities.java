@@ -1,7 +1,9 @@
 package com.itparis.b3.associations.common;
 
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -110,6 +112,46 @@ public class Utilities {
 		}
 	}
 	
+	/**
+	 * Filtre la liste d'objets
+	 * par la valeur d'une propriete.
+	 * Dans les listes generiques il faut utiliser "value" comme argument de propriete
+	 * @param  lstIn la liste d'entree
+	 * @param  fieldName la pripriete de classe 
+	 * @param  value la valeur de la propriete recherchee
+	 * 
+	 * @return List <? extends Object> la liste de sortie
+	 * 
+	 */
+	public static List <? extends Object> FindInList (List<? extends Object> lstIn, String fieldName, Object value) {
+		List <Object> tempList = new ArrayList<Object> ();
+        for (Object o : lstIn ){		
+        	try {
+        		Field[] fields = o.getClass().getDeclaredFields();
+        		
+        		for (Field f : fields) {
+        			f.setAccessible(true);
+        			if (f.getName().equals(fieldName)) {
+        				
+            			if (f.get(o) instanceof char[]){
+            				if (o == value){
+            					tempList.add(o);
+            				}
+            			}
+            			
+            			if (f.get(o).equals(value)) {
+        					tempList.add(o);
+        				}
+        			}
+        		}
+        	}
+        	catch (Exception e) {
+        		e.getMessage();
+        		e.printStackTrace();
+        	}
+        }
+		lstIn = tempList;
+		return lstIn;
+	}
 	
-
 }
