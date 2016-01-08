@@ -117,7 +117,7 @@ public class Utilities {
 	 * par la valeur d'une propriete.
 	 * Dans les listes generiques il faut utiliser "value" comme argument de propriete
 	 * @param  lstIn la liste d'entree
-	 * @param  fieldName la pripriete de classe 
+	 * @param  fieldName la propriete de classe 
 	 * @param  value la valeur de la propriete recherchee
 	 * 
 	 * @return List <? extends Object> la liste de sortie
