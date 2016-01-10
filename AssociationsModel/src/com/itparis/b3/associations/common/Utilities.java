@@ -112,6 +112,14 @@ public class Utilities {
 		}
 	}
 	
+	public static void setListError (List<? extends Object> lstObj) {
+		
+		if (!isNullOrEmptyList(lstObj)) {
+			Object o = lstObj.get(0);
+			setError (o);
+		}
+	}
+
 	/**
 	 * Filtre la liste d'objets
 	 * par la valeur d'une propriete.

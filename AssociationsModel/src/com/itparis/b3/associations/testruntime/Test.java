@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itparis.b3.associations.beans.Association;
 import com.itparis.b3.associations.beans.User;
+import com.itparis.b3.associations.common.ReqMetier;
 import com.itparis.b3.associations.common.Utilities;
 import com.itparis.b3.associations.dao.AssociationDAO;
 import com.itparis.b3.associations.dao.UserDAO;
@@ -23,10 +24,11 @@ public class Test {
 			
 		}
 		
+		List<Association> lstass = AssociationDAO.class.newInstance().getListAssociation("");
+		System.out.println(lstass.get(0).getId());
 		
-		
-		
-		
+		int rows = ReqMetier.ExecuteUpdate(" Update utilisateurs SET nomUtilisateur = 0; asdasd");
+		System.out.println(rows);
 		
 
 	}

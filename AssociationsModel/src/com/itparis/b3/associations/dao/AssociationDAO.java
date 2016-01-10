@@ -42,7 +42,6 @@ public class AssociationDAO {
 		try {
 		    con = Connexion.getConnection();
 		    st = con.createStatement();
-		    //rs = GestConnexion.getStatement().executeQuery(req);
 		    rs = st.executeQuery(req);
 		    while (rs.next()) {		            
 		    	Association a = RemplirAssociation (rs);
@@ -52,15 +51,14 @@ public class AssociationDAO {
 		catch (Exception e){
 			e.getMessage();
 			e.printStackTrace();
-		    Association a = new Association ();
-		    Utilities.setError(a);
+			Association a = new Association();
 			lstAssoc.add(a);
+		    Utilities.setListError(lstAssoc);
 		}
 	    try {
 	    	if (rs != null) rs.close();
 	    	if (st != null) st.close();
 	    	if (con != null) con.close();
-	    	//GestConnexion.CloseConnection();
 	    }
 	    catch (Exception e){}
 		return lstAssoc;

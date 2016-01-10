@@ -2,9 +2,9 @@ package com.itparis.b3.associations.common;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -23,17 +23,27 @@ public class ReqMetier {
 		Statement st = null;
 		try {
 			con = Connexion.getConnection();
+		    con.setAutoCommit(false);
 			st = con.createStatement();
 			rows = st.executeUpdate(req);
-		} catch (Exception e) {
+			con.commit();
+			con.setAutoCommit(true);
+		}
+		catch (Exception e) {
 			e.getMessage();
 			e.printStackTrace();
+			try {
+			    if (con != null) con.rollback();
+			}
+			catch (Exception e1) {e.getMessage();e.printStackTrace();}
 		}
 		try {
 			if (st != null) st.close();
-			if (con != null)con.close();
-		} catch (Exception e) {
-		}
+			if (con != null){
+				con.setAutoCommit(true);
+				con.close();
+				}
+		} catch (Exception e) {}
 		return rows;
 	}
 
@@ -43,6 +53,7 @@ public class ReqMetier {
 		PreparedStatement st = null;
 		try {
 			con = Connexion.getConnection();
+			con.setAutoCommit(false);
 			st = con.prepareStatement(req);
 			if (params.size() > 0) {
 				for (Map.Entry<Integer, String> entry : params.entrySet()) {
@@ -51,15 +62,23 @@ public class ReqMetier {
 			}
 			
 			rows = st.executeUpdate();
+			con.commit();
 		} catch (Exception e) {
 			e.getMessage();
 			e.printStackTrace();
+			if (con != null)
+				try {
+					con.rollback();
+				} 
+			    catch (SQLException e1) {e1.printStackTrace();e1.getMessage();}
 		}
 		try {
 			if (st != null) st.close();
-			if (con != null)con.close();
-		} catch (Exception e) {
-		}
+			if (con != null){
+				con.setAutoCommit(true);
+				con.close();
+			}
+		} catch (Exception e) {}
 		return rows;
 	}
 
@@ -70,6 +89,7 @@ public class ReqMetier {
 		Statement st = null;
 		try {
 			con = Connexion.getConnection();
+			con.setAutoCommit(false);
 			st = con.createStatement();
 
 			if (paramsTable.size() > 0) {
@@ -83,13 +103,20 @@ public class ReqMetier {
 			req += " Where 1=1 " + paramWhere;
 
 			rows = st.executeUpdate(req);
+			con.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			e.getMessage();
+			try {
+				con.rollback();
+			} catch (SQLException e1) {}
 		}
 		try {
 			if (st != null) st.close();
-			if (con != null)con.close();
+			if (con != null){
+				con.setAutoCommit(true);
+				con.close();
+				}
 		} catch (Exception e) {
 		}
 		return rows;
@@ -102,17 +129,25 @@ public class ReqMetier {
 		Statement st = null;
 		try {
 			con = Connexion.getConnection();
+			con.setAutoCommit(false);
 			st = con.createStatement();
             req += paramWhere;
 			
 			rows = st.executeUpdate(req);
+			con.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			e.getMessage();
+			try {
+				con.rollback();
+			} catch (SQLException e1) {}
 		}
 		try {
 			if (st != null) st.close();
-			if (con != null)con.close();
+			if (con != null){
+				 con.setAutoCommit(true);
+				 con.close();
+				}
 		} catch (Exception e) {	
 		}
 		return rows;
@@ -125,6 +160,7 @@ public class ReqMetier {
 		String req = "Insert Into "+ table +" (";
 		try {
 			con = Connexion.getConnection();
+			con.setAutoCommit(false);
 			st = con.createStatement();
 			
 			if (paramsTable.size() > 0) {
@@ -147,14 +183,21 @@ public class ReqMetier {
 			req += ")";
 			
 			rows = st.executeUpdate(req);
+			con.commit();
 		}
 		catch (Exception e){
 			e.getMessage();
 			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (SQLException e1) {}
 		}
 		try {
 			if (st != null) st.close();
-			if (con != null)con.close();
+			if (con != null){
+				 con.setAutoCommit(true);
+				 con.close();
+				}
 		} catch (Exception e) {}
 		return rows;
 	}
@@ -167,11 +210,13 @@ public class ReqMetier {
 		try {
 			if (lstQueries.size() > 0){
 				con = Connexion.getConnection();
+				con.setAutoCommit(false);
 				st = con.createStatement();
 			    for (String s : lstQueries){
 			    	st.addBatch(s);
 			    }
 				rowsArray = st.executeBatch();
+				con.commit();
 				
 				for (int i : rowsArray) {
 					rows += rowsArray [i];
@@ -181,10 +226,16 @@ public class ReqMetier {
 		catch (Exception e){
 			e.getMessage();
 			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (SQLException e1) {}
 		}
 		try {
 			if (st != null) st.close();
-			if (con != null)con.close();
+			if (con != null){
+				con.setAutoCommit(true);
+				con.close();
+			}
 		} catch (Exception e) {}	
 		return rows;
 	}

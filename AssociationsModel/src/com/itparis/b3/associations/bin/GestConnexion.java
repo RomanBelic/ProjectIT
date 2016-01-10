@@ -15,33 +15,45 @@ public final class GestConnexion {
 	 * Les proprietes de la Classe "GestConnexion" pointent vers les proprietes de la Classe "Connexion"
 	 */
 	
-	private static Connection con = null;
-	private static Statement st = null;
+	private Connection con = null;
+	private Statement st = null;
+	private static GestConnexion instance = new GestConnexion ();
 	
-	public static Statement getStatement (){
+	private Statement returnStatement () {
+		
 		try {
 			con = Connexion.getConnection();
 			st = con.createStatement();
 		}
-		catch (Exception e) {}
-	return  st;
+		catch (Exception e) {e.getMessage();e.printStackTrace();}
+		return st;
 	}
 	
-	public static PreparedStatement getPreparedStatement (String preparedQuery){
+	public static Statement getStatement () {
+		return instance.returnStatement();
+	}
+	
+	private PreparedStatement returnPreparedStatement (String preparedQuery) {
+		
 		try {
 			con = Connexion.getConnection();
 	        st = (PreparedStatement) con.prepareStatement(preparedQuery);
 		}
-		catch (Exception e) {}
-	return (PreparedStatement) st;
+		catch (Exception e) {e.getMessage();e.printStackTrace();}
+		return (PreparedStatement) instance.st;
+		
+	}
+	
+	public static PreparedStatement getPreparedStatement (String preparedQuery){
+    	return instance.returnPreparedStatement(preparedQuery);
 	}
 	
 	public static void CloseConnection () {
 		try {
-		if (st != null)
-			st.close();
-		if (con != null)
-			con.close();
+		if (instance.st != null)
+			instance.st.close();
+		if (instance.con != null)
+			instance.con.close();
 		}
 		catch (Exception e){e.getMessage();e.printStackTrace();}
 	}
