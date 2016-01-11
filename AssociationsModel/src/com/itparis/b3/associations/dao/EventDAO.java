@@ -78,8 +78,8 @@ public class EventDAO {
 			e.getMessage();
 			e.printStackTrace();
 			ParticipantEvents pe = new ParticipantEvents();
-			Utilities.setError(pe);
 			lstParticipant.add(pe);
+			Utilities.setError(lstParticipant);
 		}
 	    try {
 	    	if (rs != null) rs.close();
@@ -143,8 +143,8 @@ public ParticipantEvents getParticipantEvents (String filtre) {
 			e.getMessage();
 			e.printStackTrace();
 			AssociationEvent ae = new AssociationEvent();
-			Utilities.setError(ae);
 			lstEvent.add(ae);
+			Utilities.setError(lstEvent);
 		}
 	    try {
 	    	if (rs != null) rs.close();

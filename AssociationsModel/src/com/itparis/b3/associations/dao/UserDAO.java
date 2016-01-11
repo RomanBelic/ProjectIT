@@ -105,8 +105,8 @@ public class UserDAO {
 			e.getMessage();
 			e.printStackTrace();
 			User u = new User();
-			Utilities.setError(u);
 			lstUser.add(u);
+			Utilities.setError(lstUser);
 	    }
 	    try {
 	    	if (rs != null) rs.close();
@@ -169,8 +169,8 @@ public class UserDAO {
 			e.getMessage();
 			e.printStackTrace();
 			FicheParticipant fp = new FicheParticipant();
-			Utilities.setError(fp);
 			lstFiche.add(fp);
+			Utilities.setError(lstFiche);
 	    }
 	    try {
 	    	if (rs != null) rs.close();
@@ -235,8 +235,8 @@ public class UserDAO {
 			e.getMessage();
 			e.printStackTrace();
 			User u = new User();
-			Utilities.setError(u);
 			lstUser.add(u);
+			Utilities.setError(lstUser);
 	    }
 	    try {
 	    	if (rs != null) rs.close();
