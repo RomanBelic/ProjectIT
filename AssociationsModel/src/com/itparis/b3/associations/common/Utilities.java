@@ -145,7 +145,6 @@ public class Utilities {
 	        		for (Field f : fields) {
 	        			f.setAccessible(true);
 	        			if (f.getName().equals(fieldName)) {
-	        				
 	            			if (f.get(o) instanceof char[]){
 	            				if (o == value){
 	            					tempList.add(o);
@@ -168,7 +167,7 @@ public class Utilities {
 		return lstIn;
 	}
 	
-public static HashMap <String,String> ReadConfig (String fileName, String separator) {
+    public static HashMap <String,String> LoadConfig (String fileName, String separator) {
 		
 		BufferedReader br = null;
 		HashMap<String,String> params = new HashMap <String,String> ();

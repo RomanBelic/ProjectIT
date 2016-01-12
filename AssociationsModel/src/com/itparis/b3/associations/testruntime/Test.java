@@ -16,7 +16,7 @@ public class Test {
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException {
 		
-	HashMap <String,String> params = Utilities.ReadConfig("config.txt",">");
+	HashMap <String,String> params = Utilities.LoadConfig("config.txt",">");
 	
 		
 	System.out.println(params.get("Log"));	
