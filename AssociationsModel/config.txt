@@ -1,0 +1,7 @@
+Driver>jdbc:mysql:
+DriverClass>com.mysql.jdbc.Driver
+Host>localhost
+DataBase>dbassociations
+Param>?zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&allowMultiQueries=true
+Log>root
+Pass>Null

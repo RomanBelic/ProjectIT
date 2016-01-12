@@ -1,11 +1,15 @@
 package com.itparis.b3.associations.common;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.itparis.b3.associations.beans.Association;
@@ -133,33 +137,63 @@ public class Utilities {
 	 */
 	public static List <? extends Object> FindInList (List<? extends Object> lstIn, String fieldName, Object value) {
 		List <Object> tempList = new ArrayList<Object> ();
-        for (Object o : lstIn ){		
-        	try {
-        		Field[] fields = o.getClass().getDeclaredFields();
-        		
-        		for (Field f : fields) {
-        			f.setAccessible(true);
-        			if (f.getName().equals(fieldName)) {
-        				
-            			if (f.get(o) instanceof char[]){
-            				if (o == value){
-            					tempList.add(o);
-            				}
-            			}
-            			
-            			if (f.get(o).equals(value)) {
-        					tempList.add(o);
-        				}
-        			}
-        		}
-        	}
-        	catch (Exception e) {
-        		e.getMessage();
-        		e.printStackTrace();
-        	}
-        }
-		lstIn = tempList;
+		if (!isNullOrEmptyList(lstIn)) {
+			Field[] fields = lstIn.get(0).getClass().getDeclaredFields();
+		 
+	        for (Object o : lstIn ){		
+	        	try {
+	        		for (Field f : fields) {
+	        			f.setAccessible(true);
+	        			if (f.getName().equals(fieldName)) {
+	        				
+	            			if (f.get(o) instanceof char[]){
+	            				if (o == value){
+	            					tempList.add(o);
+	            				}
+	            			}
+	            			
+	            			if (f.get(o).equals(value)) {
+	        					tempList.add(o);
+	        				}
+	        			}
+	        		}
+	        	}
+	        	catch (Exception e) {
+	        		e.getMessage();
+	        		e.printStackTrace();
+	        	}
+	        }
+			lstIn = tempList;
+		}
 		return lstIn;
 	}
+	
+public static HashMap <String,String> ReadConfig (String fileName, String separator) {
+		
+		BufferedReader br = null;
+		HashMap<String,String> params = new HashMap <String,String> ();
+	    try {
+	    	String sCurrentLine;
+	        br = new BufferedReader(new FileReader("./"+fileName));//file name with path
+	        while ((sCurrentLine = br.readLine()) != null) {
+	               String[] strArr = sCurrentLine.split(separator);
+	               if (strArr [1].equals("Null"))
+	            	   strArr [1] = "";
+	               params.put (strArr[0],strArr[1]);
+	        }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            try {
+	                if (br != null)br.close();
+	            } catch (IOException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	    return params;
+	}
+	
+	
+	
 	
 }

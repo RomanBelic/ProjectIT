@@ -8,40 +8,68 @@ import java.sql.DriverManager;
  * */
 public final class Connexion  {
 	
-	private static final String host = "localhost";
-	private static final String log = "root";
-	private static final String pass = "";
-	private static final String db = "dbassociations";
-	private static final String driver = "jdbc:mysql:";
-	private static final String driverClass = "com.mysql.jdbc.Driver";
-	private static final String dbparams = "?zeroDateTimeBehavior=convertToNull&autoReconnect=true&"
-			                                   + "characterEncoding=UTF-8&characterSetResults=UTF-8"
-                                               + "&allowMultiQueries=true";
-	
+	private static String host = "";       //"localhost";
+	private static String log = "";        //"root";
+	private static String pass = "";       //"";
+	private static String db = "";         //"dbassociations";
+	private static String driver = "";     //"jdbc:mysql:";
+	private static String driverClass = "";//"com.mysql.jdbc.Driver";
+	private static String dbparams = "";   //"?zeroDateTimeBehavior=convertToNull&autoReconnect=true"
+				                           //+ "&characterEncoding=UTF-8&characterSetResults=UTF-8"
+	                                       //+ "&allowMultiQueries=true";
+
 	private static Connexion instance = new Connexion();
- 
-	private Connexion ()
-	{
-		try {
-			Class.forName(driverClass);
-			}
-		catch (Exception e){
-			e.printStackTrace();
-			e.getMessage();
-		}
+	
+	public static void setHost(String host) {
+		Connexion.host = host;
 	}
 
+	public static void setLog(String log) {
+		Connexion.log = log;
+	}
+
+	public static void setPass(String pass) {
+		Connexion.pass = pass;
+	}
+
+	public static void setDb(String db) {
+		Connexion.db = db;
+	}
+
+	public static void setDriver(String driver) {
+		Connexion.driver = driver;
+	}
+
+	public static void setDriverClass(String driverClass) {
+		Connexion.driverClass = driverClass;
+	}
+
+	public static void setDbparams(String dbparams) {
+		Connexion.dbparams = dbparams;
+	}
+
+	public static void setInstance(Connexion instance) {
+		Connexion.instance = instance;
+	}
+	
     private Connection CreateConnection () 
 	{
     	Connection con = null;
-        try {
-            con = DriverManager.getConnection(driver + "//" + host + "/" + db + dbparams, log, pass);
-        }
-        catch (Exception e)
-        {
-        	e.getMessage();
-        	System.out.println("connection could not be opened ");
-        }
+    	try{
+    		Class.forName(driverClass);
+	        try {
+	            con = DriverManager.getConnection(driver + "//" + host + "/" + db + dbparams, log, pass);
+	        }
+	        catch (Exception e)
+	        {
+	        	e.getMessage();
+	        	System.out.println("connection could not be opened ");
+	        }
+    	}
+    	catch (Exception e){
+    		e.getMessage();
+    		System.out.println ("Driver not found");
+    	}
         return con;
 	}
     
@@ -49,5 +77,4 @@ public final class Connexion  {
     {
     	return instance.CreateConnection();
     }  
-    
 }
