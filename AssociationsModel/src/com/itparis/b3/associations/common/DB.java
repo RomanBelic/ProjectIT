@@ -34,7 +34,7 @@ public final class DB {
 		        " "+TypeUtilisateurs.alias+".Libelle" + 
 		        " FROM " +Utilisateurs+" "+Utilisateurs.alias +
 				" "+MakeJoin("LEFT", Utilisateurs, TypeUtilisateurs, "idType", "id") +
-				" Where 1=1 AND " +Utilisateurs.alias+".Statut = 1";
+				" Where 1=1 AND " +Utilisateurs.alias+".Statut = 1 ";
 		
 		public static final String GetLoginPassQuery = 
 				" Select Login, MDP From " + Authentification + " Where Login = ? and MDP = ? ";

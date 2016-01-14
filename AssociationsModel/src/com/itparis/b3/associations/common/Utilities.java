@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.itparis.b3.associations.beans.Association;
 import com.itparis.b3.associations.beans.AssociationDesc;
@@ -20,6 +22,7 @@ import com.itparis.b3.associations.beans.FicheParticipant;
 import com.itparis.b3.associations.beans.ParticipantEvents;
 import com.itparis.b3.associations.beans.TypeUser;
 import com.itparis.b3.associations.beans.User;
+import com.itparis.b3.associations.common.DBSpecialValues.PreparedLike;
 
 public class Utilities {
 	
@@ -123,7 +126,43 @@ public class Utilities {
 			setError (o);
 		}
 	}
+	
+	public static HashMap <Integer,Object> PutParams (List<Object> pList) {
+		HashMap<Integer, Object> params = new HashMap <Integer, Object>();
+		for (int i = 0; i < pList.size(); i++ ) {
+			params.put(i + 1, pList.get(i));
+		}
+		return params;
+	}
+	
+	public static void setSQLParams (PreparedStatement st, HashMap<Integer, Object> params) {
+    	try {
+		    for (Map.Entry<Integer, Object> p : params.entrySet()) {
+		    	
+		    	if (p.getValue() instanceof String)
+		    	    st.setString(p.getKey(), (String)p.getValue());
+		    	
+		    	if (p.getValue() instanceof Integer)
+			    	 st.setInt(p.getKey(), (Integer)p.getValue());
+		    	
+		    	if (p.getValue() instanceof Float)
+			    	 st.setFloat(p.getKey(), (Float)p.getValue());
+		    	
+		    	if (p.getValue() instanceof Double)
+			    	 st.setDouble(p.getKey(), (Double)p.getValue());
 
+		    	if (p.getValue() instanceof Short)
+			    	 st.setShort(p.getKey(), (Short)p.getValue());
+		    	
+		    	if (p.getValue() instanceof PreparedLike){
+			    	st.setString(p.getKey(), p.getValue().toString());
+		    	}
+		    }
+    	}
+    	catch (Exception e){e.printStackTrace();}
+    }
+	
+	
 	/**
 	 * Filtre la liste d'objets
 	 * par la valeur d'une propriete.

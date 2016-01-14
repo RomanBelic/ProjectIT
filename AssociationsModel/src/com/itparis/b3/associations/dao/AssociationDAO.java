@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
 import com.itparis.b3.associations.beans.Association;
 import com.itparis.b3.associations.bin.Connexion;
 import com.itparis.b3.associations.common.DB.Queries;
@@ -34,20 +32,6 @@ public class AssociationDAO {
 		return a;
 	} 
 
-    private void setSQLParams (PreparedStatement st, HashMap<Integer, Object> params) {
-    	try {
-		    for (Map.Entry<Integer, Object> p : params.entrySet()) {
-		    	if (p.getValue() instanceof String)
-		    	 st.setString(p.getKey(), (String)p.getValue());
-		    	
-		    	if (p.getValue() instanceof Integer)
-			    	 st.setInt(p.getKey(), (Integer)p.getValue());
-		    	
-		    }
-    	}
-    	catch (Exception e){e.printStackTrace();}
-    }
-	
 	public ArrayList<Association> getListAssociation (String filtre, HashMap <Integer, Object> params) {
 		Connection con = null;
 		PreparedStatement st = null;
@@ -60,9 +44,9 @@ public class AssociationDAO {
 		    con = Connexion.getConnection();
 		    st = con.prepareStatement(req);
 		    
-		    setSQLParams (st, params);
+		    Utilities.setSQLParams (st, params);
 		    
-		    rs = st.executeQuery(req);
+		    rs = st.executeQuery();
 		    while (rs.next()) {		            
 		    	Association a = RemplirAssociation (rs);
 		    	lstAssoc.add(a);

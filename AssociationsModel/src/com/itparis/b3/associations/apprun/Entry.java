@@ -28,7 +28,7 @@ public class Entry {
 		entry.setConnectionArgs ();
 	   	
         List<Association> lstA = new ArrayList<Association> ();
-        lstA = AssociationMetier.getListAssociations(0, "app", "");
+        lstA = AssociationMetier.getListAssociations(1, "", "", "");
 	   	for (Association a : lstA) {
 	   		System.out.println(a.getLibelle());
 	   	}
