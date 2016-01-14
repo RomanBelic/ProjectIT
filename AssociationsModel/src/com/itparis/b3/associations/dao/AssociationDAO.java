@@ -1,9 +1,12 @@
 package com.itparis.b3.associations.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.itparis.b3.associations.beans.Association;
 import com.itparis.b3.associations.bin.Connexion;
@@ -31,9 +34,23 @@ public class AssociationDAO {
 		return a;
 	} 
 
-	public ArrayList<Association> getListAssociation (String filtre) {
+    private void setSQLParams (PreparedStatement st, HashMap<Integer, Object> params) {
+    	try {
+		    for (Map.Entry<Integer, Object> p : params.entrySet()) {
+		    	if (p.getValue() instanceof String)
+		    	 st.setString(p.getKey(), (String)p.getValue());
+		    	
+		    	if (p.getValue() instanceof Integer)
+			    	 st.setInt(p.getKey(), (Integer)p.getValue());
+		    	
+		    }
+    	}
+    	catch (Exception e){e.printStackTrace();}
+    }
+	
+	public ArrayList<Association> getListAssociation (String filtre, HashMap <Integer, Object> params) {
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		String req = Queries.GetAssociationQuery + filtre;
@@ -41,7 +58,10 @@ public class AssociationDAO {
 		ArrayList <Association> lstAssoc = new  ArrayList<Association>();
 		try {
 		    con = Connexion.getConnection();
-		    st = con.createStatement();
+		    st = con.prepareStatement(req);
+		    
+		    setSQLParams (st, params);
+		    
 		    rs = st.executeQuery(req);
 		    while (rs.next()) {		            
 		    	Association a = RemplirAssociation (rs);

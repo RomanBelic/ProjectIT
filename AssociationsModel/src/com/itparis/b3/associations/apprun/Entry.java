@@ -1,9 +1,13 @@
 package com.itparis.b3.associations.apprun;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import com.itparis.b3.associations.beans.Association;
 import com.itparis.b3.associations.bin.Connexion;
 import com.itparis.b3.associations.common.Utilities;
+import com.itparis.b3.associations.metier.AssociationMetier;
 
 public class Entry {
 	
@@ -22,9 +26,12 @@ public class Entry {
 		
 		Entry entry = new Entry ();
 		entry.setConnectionArgs ();
-		
-
-		
+	   	
+        List<Association> lstA = new ArrayList<Association> ();
+        lstA = AssociationMetier.getListAssociations(0, "app", "");
+	   	for (Association a : lstA) {
+	   		System.out.println(a.getLibelle());
+	   	}
 	
 		
 		

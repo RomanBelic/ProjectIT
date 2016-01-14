@@ -90,6 +90,40 @@ public final class DB {
 		public static final String DeleteUserPQuery = 
 				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ";
 				
+		public static final String DeleteTypeUserPQuery = 
+				" DELETE FROM "+TypeUtilisateurs+" WHERE "+TypeUtilisateurs+".id = ? ";
+		
+		public static final String DeleteParticipantEventsPQuery = 
+				" DELETE FROM "+ParticipantEvents+" WHERE "+ParticipantEvents+".id = ? ";
+		
+		public static final String DeleteFicheParticipantPQuery = 
+				" DELETE FROM "+FicheParticipant+" WHERE "+FicheParticipant+".id = ? ";
+		
+		public static final String DeleteAuthentificationPQuery = 
+				" DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ";
+		
+		public static final String DeleteAssociationEventPQuery = 
+				" DELETE FROM "+AssociationEvents+" WHERE "+AssociationEvents+".id = ? ";
+		
+		public static final String DeleteAssociationDescPQuery = 
+				" DELETE FROM "+AssociationDesc+" WHERE "+AssociationDesc+".id = ? ";
+		
+		public static final String DeleteAssociation = 
+				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ";
+		
+			
+		
+				
+		
+		
+		
+		
+		
+		
+		
+		
+			
+		
 		
 				
 
