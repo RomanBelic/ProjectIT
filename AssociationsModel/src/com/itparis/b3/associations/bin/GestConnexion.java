@@ -48,7 +48,7 @@ public final class GestConnexion {
     	return instance.returnPreparedStatement(preparedQuery);
 	}
 	
-	public static void CloseConnection () {
+	public static void closeConnection () {
 		try {
 		if (instance.st != null)
 			instance.st.close();

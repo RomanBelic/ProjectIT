@@ -12,12 +12,12 @@ import com.itparis.b3.associations.bin.Connexion;
 
 /*
  * Classe ReqMetier;
- * Contient des methdoes DAO parametrees;
+ * Contient des methodes DAO parametrees;
  * */
 
 public class ReqMetier {
 	
-	public static int ExecuteUpdate(String req) {
+	public static int executeUpdate(String req) {
 		int rows = 0;
 		Connection con = null;
 		Statement st = null;
@@ -27,7 +27,6 @@ public class ReqMetier {
 			st = con.createStatement();
 			rows = st.executeUpdate(req);
 			con.commit();
-			con.setAutoCommit(true);
 		}
 		catch (Exception e) {
 			e.getMessage();
@@ -47,7 +46,7 @@ public class ReqMetier {
 		return rows;
 	}
 
-	public static int ExecutePreparedQuery(String req, HashMap<Integer, String> params) {
+	public static int executePreparedQuery(String req, HashMap<Integer, Object> params) {
 		int rows = 0;
 		Connection con = null;
 		PreparedStatement st = null;
@@ -55,11 +54,8 @@ public class ReqMetier {
 			con = Connexion.getConnection();
 			con.setAutoCommit(false);
 			st = con.prepareStatement(req);
-			if (params.size() > 0) {
-				for (Map.Entry<Integer, String> entry : params.entrySet()) {
-					st.setString(entry.getKey(), entry.getValue());
-				}
-			}
+			
+			Utilities.setSQLParams(st, params);
 			
 			rows = st.executeUpdate();
 			con.commit();
@@ -82,7 +78,7 @@ public class ReqMetier {
 		return rows;
 	}
 
-	public static int ExecuteParameteredUpdate(String table,HashMap<String, String> paramsTable, String paramWhere) {
+	public static int executeParameteredUpdate(String table, HashMap<String, String> paramsTable, String paramWhere) {
 		int rows = 0;
 		String req = "Update " + table + " SET ";
 		Connection con = null;
@@ -122,7 +118,7 @@ public class ReqMetier {
 		return rows;
 	}
 
-	public static int ExecuteParameteredDelete(String table, String paramWhere) {
+	public static int executeParameteredDelete(String table, String paramWhere) {
 		int rows = 0;
 		String req = "Delete From " + table + " Where 1=1 ";
 		Connection con = null;
@@ -153,7 +149,7 @@ public class ReqMetier {
 		return rows;
 	}
 	
-	public static int ExecuteParameteredInsert(String table, HashMap<String,String>paramsTable) {
+	public static int executeParameteredInsert(String table, HashMap<String,String>paramsTable) {
 		int rows = 0;
 		Connection con = null;
 		Statement st = null;
@@ -202,7 +198,7 @@ public class ReqMetier {
 		return rows;
 	}
 	
-	public static int ExecuteBatch (List<String>lstQueries) {
+	public static int executeBatch (List<String>lstQueries) {
 		Connection con = null;
 		Statement st = null;
 		int[] rowsArray = {0};

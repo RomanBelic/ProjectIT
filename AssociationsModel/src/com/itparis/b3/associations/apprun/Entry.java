@@ -12,7 +12,7 @@ import com.itparis.b3.associations.metier.AssociationMetier;
 public class Entry {
 	
 	private void setConnectionArgs () {
-		HashMap <String,String> settings = Utilities.LoadConfig("config.txt", ">");
+		HashMap <String,String> settings = Utilities.loadConfig("config.txt", ">");
 		Connexion.setDriver(settings.get("Driver"));
 		Connexion.setDriverClass(settings.get("DriverClass"));
 		Connexion.setHost(settings.get("Host"));

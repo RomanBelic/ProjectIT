@@ -3,7 +3,6 @@ package com.itparis.b3.associations.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.itparis.b3.associations.beans.Association;
@@ -69,9 +68,9 @@ public class AssociationDAO {
 
 	}
 	
-	public Association getAssociation (String filtre) {
+	public Association getAssociation (String filtre,HashMap<Integer,Object> params) {
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		String req = Queries.GetAssociationQuery + filtre;
@@ -80,8 +79,11 @@ public class AssociationDAO {
 		
 		try {
 		    con = Connexion.getConnection();
-		    st = con.createStatement();
-		    rs = st.executeQuery(req);
+		    st = con.prepareStatement(req);
+		    
+		    Utilities.setSQLParams(st, params);
+		    
+		    rs = st.executeQuery();
 		    while (rs.next()) {		            
 		    	a = RemplirAssociation (rs);
 	           	}

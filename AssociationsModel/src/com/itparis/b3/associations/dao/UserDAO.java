@@ -1,8 +1,9 @@
 package com.itparis.b3.associations.dao;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.itparis.b3.associations.beans.*;
 import com.itparis.b3.associations.bin.Connexion;
@@ -53,14 +54,14 @@ public class UserDAO {
             fp.setIdAssoc(rs.getInt("idAssociation"));
             
             if (rs.getString("dateInscription") != null ){
-                String dateInsc = Utilities.ConvertDBDateToFRDate(rs.getString("dateInscription"), '-');
+                String dateInsc = Utilities.convertDBDateToFRDate(rs.getString("dateInscription"), '-');
                 fp.setDateInscription(dateInsc);
             }
             else
             	 fp.setDateInscription("n/a");
             
             if (rs.getString("dateDesinscription") != null) {
-            	String dateDesinsc =  Utilities.ConvertDBDateToFRDate(rs.getString("dateDesinscription"), '-');
+            	String dateDesinsc =  Utilities.convertDBDateToFRDate(rs.getString("dateDesinscription"), '-');
             	fp.setDateDesinscription(dateDesinsc);
             }
             else
@@ -83,10 +84,10 @@ public class UserDAO {
 		return fp;
 	}
 	
-	public ArrayList <User> getListUser (String filtre)
+	public ArrayList <User> getListUser (String filtre, HashMap<Integer,Object> params)
 	{
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		ArrayList <User> lstUser = new  ArrayList<User>();
 		
@@ -94,8 +95,11 @@ public class UserDAO {
 	    
 	    try {
 	    	con = Connexion.getConnection();
-	    	st = con.createStatement();
-	        rs = st.executeQuery(req);
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	        rs = st.executeQuery();
 	        while (rs.next()) {
 	            User u = RemplirUser (rs);
 	            lstUser.add(u);
@@ -117,9 +121,9 @@ public class UserDAO {
 		return lstUser;
 	}
 	
-	public User getUser (String filtre) {
+	public User getUser (String filtre, HashMap<Integer,Object> params) {
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		String req = Queries.GetUserQuery + filtre;
@@ -127,8 +131,11 @@ public class UserDAO {
 		User u = new User ();
 		try {
 		    con = Connexion.getConnection();
-		    st = con.createStatement();
-		    rs = st.executeQuery(req);
+		    st = con.prepareStatement(req);
+		    
+		    Utilities.setSQLParams(st, params);
+		    
+		    rs = st.executeQuery();
 		    while (rs.next()) {		            
 		    	u = RemplirUser (rs);
 	           	}
@@ -147,10 +154,10 @@ public class UserDAO {
 		return u;	
 	}
 	
-	public ArrayList <FicheParticipant> getListFicheParticipant (String filtre)
+	public ArrayList <FicheParticipant> getListFicheParticipant (String filtre, HashMap<Integer,Object> params)
 	{
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		ArrayList <FicheParticipant> lstFiche = new  ArrayList<FicheParticipant>();
 		
@@ -158,8 +165,11 @@ public class UserDAO {
 	    
 	    try {
 	    	con = Connexion.getConnection();
-	    	st = con.createStatement();
-	        rs = st.executeQuery(req);
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	        rs = st.executeQuery();
 	        while (rs.next()) {
 	        	FicheParticipant fp = RemplirFicheParticipant (rs);
 	            lstFiche.add(fp);
@@ -181,10 +191,10 @@ public class UserDAO {
 		return lstFiche;
 	}
 	
-	public FicheParticipant getFicheParticipant (String filtre)
+	public FicheParticipant getFicheParticipant (String filtre, HashMap<Integer,Object> params)
 	{
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		FicheParticipant fp = new  FicheParticipant();
 		
@@ -192,8 +202,11 @@ public class UserDAO {
 	    
 	    try {
 	    	con = Connexion.getConnection();
-	    	st = con.createStatement();
-	        rs = st.executeQuery(req);
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	        rs = st.executeQuery();
 	        while (rs.next()) {
 	            fp = RemplirFicheParticipant (rs);
 	        }
@@ -213,10 +226,10 @@ public class UserDAO {
 	}
 	
 	
-	public ArrayList <User> getListUserByState (String filtre)
+	public ArrayList <User> getListUserByState (String filtre, HashMap<Integer, Object> params)
 	{
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		ArrayList <User> lstUser = new  ArrayList<User>();
 		
@@ -224,8 +237,11 @@ public class UserDAO {
 	    
 	    try {
 	    	con = Connexion.getConnection();
-	    	st = con.createStatement();
-	        rs = st.executeQuery(req);
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	        rs = st.executeQuery();
 	        while (rs.next()) {
 	            User u = RemplirSimpleUser (rs);
 	            lstUser.add(u);
@@ -247,10 +263,10 @@ public class UserDAO {
 		return lstUser;
 	}
 	
-	public User getUserSimple (String filtre)
+	public User getUserSimple (String filtre, HashMap<Integer,Object>params)
 	{
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		User u = new User();
 		
@@ -258,8 +274,11 @@ public class UserDAO {
 	    
 	    try {
 	    	con = Connexion.getConnection();
-	    	st = con.createStatement();
-	        rs = st.executeQuery(req);
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	        rs = st.executeQuery();
 	        while (rs.next()) {
 	            u = RemplirSimpleUser (rs);
 	        }

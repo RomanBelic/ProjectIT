@@ -30,7 +30,7 @@ import com.itparis.b3.associations.beans.ParticipantEvents;
 import com.itparis.b3.associations.beans.TypeUser;
 import com.itparis.b3.associations.beans.User;
 
-public class XMLWriter_simple {
+public class XMLWriter {
 
 	private String fname = "";
 	private String dateGen = "";
@@ -40,7 +40,7 @@ public class XMLWriter_simple {
 	private List<HashMap<String,String>> lstDat =  new ArrayList<HashMap<String,String>>();
   	private List <String> lstNames =  new ArrayList <String>();
 	
-	public XMLWriter_simple (Object o) {
+	public XMLWriter (Object o) {
 		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
 		Date date = new Date();
 	    fname = dateFormat.format(date);
@@ -69,7 +69,7 @@ public class XMLWriter_simple {
 	}
 	
 	
-	private void LoadList () {
+	private void loadList () {
 		
         if (wrapper instanceof Association) {
           	lstDat.add(generateData((Association) wrapper));
@@ -145,7 +145,7 @@ public class XMLWriter_simple {
             //end header
             
             //Body
-            LoadList ();
+            loadList ();
             
             for (int i = 0; i<lstDat.size(); i++ ) {
                     Element body = doc.createElement(lstNames.get(i));

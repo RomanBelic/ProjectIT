@@ -1,10 +1,11 @@
 package com.itparis.b3.associations.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.itparis.b3.associations.beans.AssociationEvent;
 import com.itparis.b3.associations.beans.ParticipantEvents;
@@ -24,7 +25,7 @@ public class EventDAO {
 			ae.setNbParticipant(rs.getInt("nbParticipant"));
 
 			if (rs.getString("dateEvent") != null ) {
-				String frdate = Utilities.ConvertDBDateToFRDate(rs.getString("dateEvent"), '-');
+				String frdate = Utilities.convertDBDateToFRDate(rs.getString("dateEvent"), '-');
 				ae.setDateEvent(frdate);
 			}	
 			else ae.setDateEvent("n/a");
@@ -56,10 +57,10 @@ public class EventDAO {
 		return pe;
 	}
 	
-	public ArrayList<ParticipantEvents> getListParticipantEvents (String filtre) {
+	public ArrayList<ParticipantEvents> getListParticipantEvents (String filtre, HashMap<Integer,Object> params) {
 		
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		String req = Queries.GetEventParticipant + filtre;
@@ -67,8 +68,11 @@ public class EventDAO {
 		ArrayList <ParticipantEvents> lstParticipant = new  ArrayList<ParticipantEvents>();
 		try {
 		    con = Connexion.getConnection();
-		    st = con.createStatement();
-		    rs = st.executeQuery(req);
+		    st = con.prepareStatement(req);
+		    
+		    Utilities.setSQLParams(st, params);
+		    
+		    rs = st.executeQuery();
 		    while (rs.next()) {		            
 		    	ParticipantEvents pe = RemplirParticipant (rs);
 		    	lstParticipant.add(pe);
@@ -90,10 +94,10 @@ public class EventDAO {
 		return lstParticipant;
 	}
 	
-public ParticipantEvents getParticipantEvents (String filtre) {
+public ParticipantEvents getParticipantEvents (String filtre, HashMap<Integer,Object> params) {
 		
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		String req = Queries.GetEventParticipant + filtre;
@@ -101,8 +105,11 @@ public ParticipantEvents getParticipantEvents (String filtre) {
 		ParticipantEvents pe = new ParticipantEvents ();
 		try {
 		    con = Connexion.getConnection();
-		    st = con.createStatement();
-		    rs = st.executeQuery(req);
+		    st = con.prepareStatement(req);
+		    
+		    Utilities.setSQLParams(st, params);
+		    
+		    rs = st.executeQuery();
 		    while (rs.next()) {		            
 		    	pe = RemplirParticipant (rs);
 	           	}
@@ -121,10 +128,10 @@ public ParticipantEvents getParticipantEvents (String filtre) {
 		return pe;
 	}
 	
-	public ArrayList <AssociationEvent> getListAssociationEvents (String filtre){
+	public ArrayList <AssociationEvent> getListAssociationEvents (String filtre, HashMap<Integer,Object> params){
 		
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		String req = Queries.GetEvent + filtre;
@@ -132,8 +139,11 @@ public ParticipantEvents getParticipantEvents (String filtre) {
 		ArrayList <AssociationEvent> lstEvent = new  ArrayList<AssociationEvent>();
 		try {
 		    con = Connexion.getConnection();
-		    st = con.createStatement();
-		    rs = st.executeQuery(req);
+		    st = con.prepareStatement(req);
+		    
+		    Utilities.setSQLParams(st, params);
+		    
+		    rs = st.executeQuery();
 		    while (rs.next()) {		            
 		    	AssociationEvent ae = RemplirEvent (rs);
 		    	lstEvent.add(ae);
@@ -156,10 +166,10 @@ public ParticipantEvents getParticipantEvents (String filtre) {
 		
 	}
 	
-	public AssociationEvent getAssociationEvent (String filtre){
+	public AssociationEvent getAssociationEvent (String filtre, HashMap<Integer,Object> params){
 		
 		Connection con = null;
-		Statement st = null;
+		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		String req = Queries.GetEvent + filtre;
@@ -167,8 +177,11 @@ public ParticipantEvents getParticipantEvents (String filtre) {
 		AssociationEvent ae = new AssociationEvent ();
 		try {
 		    con = Connexion.getConnection();
-		    st = con.createStatement();
-		    rs = st.executeQuery(req);
+		    st = con.prepareStatement(req);
+		    
+		    Utilities.setSQLParams(st, params);
+		    
+		    rs = st.executeQuery();
 		    while (rs.next()) {		            
 		    	   ae = RemplirEvent (rs);
 	           	}

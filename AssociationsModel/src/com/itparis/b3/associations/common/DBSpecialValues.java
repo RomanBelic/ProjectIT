@@ -2,11 +2,11 @@ package com.itparis.b3.associations.common;
 
 public class DBSpecialValues {
 	
-      public static class PreparedLike {
+      public static class PreparedLikeClause {
     	  
     	private String value;
     	
-    	public PreparedLike (String newValue) {
+    	public PreparedLikeClause (String newValue) {
     		value = newValue;
     	}
     	

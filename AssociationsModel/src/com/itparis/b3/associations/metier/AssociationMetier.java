@@ -24,19 +24,19 @@ public class AssociationMetier {
 		}
 		if (!Utilities.isNullOrEmptyString(nomAssoc))
 		{
-			lstPValues.add(new PreparedLike (nomAssoc));
+			lstPValues.add(new PreparedLikeClause (nomAssoc));
 			filtre += " AND " +DB.AssociationDesc.alias+".nomAssoc LIKE ? ";
 		}
 		if (!Utilities.isNullOrEmptyString(libAssoc))
 		{
-			lstPValues.add(new PreparedLike (libAssoc));
+			lstPValues.add(new PreparedLikeClause (libAssoc));
 			filtre += " AND " +DB.Association.alias+".LibelleAssociation LIKE ? ";
 		}
 		if (!Utilities.isNullOrEmptyString(OrderBy)){
 			filtre += " ORDER BY "+ OrderBy;
 		}
 		
-		HashMap <Integer,Object> params = Utilities.PutParams(lstPValues);
+		HashMap <Integer,Object> params = Utilities.putParams(lstPValues);
 		
 		try {
 			lstAssoc = AssociationDAO.class.newInstance().getListAssociation(filtre, params);
@@ -48,11 +48,16 @@ public class AssociationMetier {
 	public static Association getAssociation (int id) {
 		Association a = new Association ();
 		String filtre = "";
+		List<Object> lstPValues = new ArrayList<Object>();
 		if (id > 0){
-			filtre += " AND " +DB.Association.alias+".id ="+ id;
+			lstPValues.add(id);
+			filtre += " AND " +DB.Association.alias+".id = ? ";
 		}
+		
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		
 		try {
-			a = AssociationDAO.class.newInstance().getAssociation(filtre);
+			a = AssociationDAO.class.newInstance().getAssociation(filtre, params);
 		} 
 	    catch (IllegalAccessException | InstantiationException e) {}
         return a;

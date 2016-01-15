@@ -52,7 +52,7 @@ public final class Connexion  {
 		Connexion.instance = instance;
 	}
 	
-    private Connection CreateConnection () 
+    private Connection createConnection () 
 	{
     	Connection con = null;
     	try{
@@ -75,6 +75,6 @@ public final class Connexion  {
     
     public static Connection getConnection ()
     {
-    	return instance.CreateConnection();
+    	return instance.createConnection();
     }  
 }

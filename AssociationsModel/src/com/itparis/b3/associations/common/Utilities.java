@@ -22,11 +22,11 @@ import com.itparis.b3.associations.beans.FicheParticipant;
 import com.itparis.b3.associations.beans.ParticipantEvents;
 import com.itparis.b3.associations.beans.TypeUser;
 import com.itparis.b3.associations.beans.User;
-import com.itparis.b3.associations.common.DBSpecialValues.PreparedLike;
+import com.itparis.b3.associations.common.DBSpecialValues.PreparedLikeClause;
 
 public class Utilities {
 	
-	public static String ConvertDBDateToFRDate (String dateString, char delimiter) {
+	public static String convertDBDateToFRDate (String dateString, char delimiter) {
 		String formattedDate = "";
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	    try {
@@ -39,7 +39,7 @@ public class Utilities {
 	    return formattedDate;
 	}
 	
-	public static String ConvertFRDateToDBDate (String dateString, char delimiter) {
+	public static String convertFRDateToDBDate (String dateString, char delimiter) {
 		String formattedDate = "";
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd"+delimiter+"MM"+delimiter+"yyyy");
@@ -127,14 +127,21 @@ public class Utilities {
 		}
 	}
 	
-	public static HashMap <Integer,Object> PutParams (List<Object> pList) {
+	public static HashMap <Integer,Object> putParams (List<Object> lstPValues) {
 		HashMap<Integer, Object> params = new HashMap <Integer, Object>();
-		for (int i = 0; i < pList.size(); i++ ) {
-			params.put(i + 1, pList.get(i));
+		for (int i = 0; i < lstPValues.size(); i++ ) {
+			params.put(i + 1, lstPValues.get(i));
 		}
 		return params;
 	}
-	
+	/**
+	 * 
+	 * 
+	 * @author Roman
+	 * @
+	 * @param st
+	 * @param params
+	 */
 	public static void setSQLParams (PreparedStatement st, HashMap<Integer, Object> params) {
     	try {
 		    for (Map.Entry<Integer, Object> p : params.entrySet()) {
@@ -154,7 +161,7 @@ public class Utilities {
 		    	if (p.getValue() instanceof Short)
 			    	 st.setShort(p.getKey(), (Short)p.getValue());
 		    	
-		    	if (p.getValue() instanceof PreparedLike){
+		    	if (p.getValue() instanceof PreparedLikeClause){
 			    	st.setString(p.getKey(), p.getValue().toString());
 		    	}
 		    }
@@ -174,11 +181,11 @@ public class Utilities {
 	 * @return List <? extends Object> la liste de sortie
 	 * 
 	 */
-	public static List <? extends Object> FindInList (List<? extends Object> lstIn, String fieldName, Object value) {
+	public static List <? extends Object> findInList (List<? extends Object> lstIn, String fieldName, Object value) {
 		List <Object> tempList = new ArrayList<Object> ();
 		if (!isNullOrEmptyList(lstIn)) {
 			Field[] fields = lstIn.get(0).getClass().getDeclaredFields();
-		 
+			
 	        for (Object o : lstIn ){		
 	        	try {
 	        		for (Field f : fields) {
@@ -206,7 +213,7 @@ public class Utilities {
 		return lstIn;
 	}
 	
-    public static HashMap <String,String> LoadConfig (String fileName, String separator) {
+    public static HashMap <String,String> loadConfig (String fileName, String separator) {
 		
 		BufferedReader br = null;
 		HashMap<String,String> params = new HashMap <String,String> ();
