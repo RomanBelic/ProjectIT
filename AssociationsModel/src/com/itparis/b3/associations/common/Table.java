@@ -5,7 +5,7 @@ public abstract class Table {
 	private final String name;
 	public final String alias;
 	
-	public  Table (String name, String alias) {
+	public Table (String name, String alias) {
 		this.name = name;
 		this.alias = alias;
 	}

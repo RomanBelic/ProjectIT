@@ -16,7 +16,7 @@ public class AuthDAO {
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-        String query = Queries.GetLoginPassQuery;
+        String query = Queries.GetLoginPassPQuery;
         
 		try {
 			con = Connexion.getConnection();
@@ -45,7 +45,7 @@ public class AuthDAO {
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-        String query = Queries.GetUserData;
+        String query = Queries.GetUserDataPQuery;
         
 		try {
 			con = Connexion.getConnection();

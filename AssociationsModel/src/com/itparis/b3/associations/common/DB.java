@@ -36,8 +36,8 @@ public final class DB {
 				" "+makeJoin("LEFT", Utilisateurs, TypeUtilisateurs, "idType", "id") +
 				" Where 1=1 AND " +Utilisateurs.alias+".Statut = 1 ";
 		
-		public static final String GetLoginPassQuery = 
-				" SELECT Login, MDP From " + Authentification + " Where Login = ? and MDP = ? ";
+		public static final String GetLoginPassPQuery = 
+				" SELECT Login, MDP From " + Authentification + " Where Login = ? and MDP = ? ; ";
 		
         public static final String GetAssociationQuery = 
         		" SELECT "+Association.alias+".id, "+Association.alias+".LibelleAssociation," +
@@ -48,17 +48,17 @@ public final class DB {
         		" "+makeJoin("LEFT", Association, AssociationDesc, "id", "idAssociation") +
         		" Where 1=1 " ;
         	
-		public static final String GetUserData = 
-				" SELECT idUtilisateur, Login, MDP From " + Authentification + " Where Login = ? and MDP = ? ";
+		public static final String GetUserDataPQuery = 
+				" SELECT idUtilisateur, Login, MDP From " + Authentification + " Where Login = ? and MDP = ? ; ";
 				
-		public static final String GetEvent = 
+		public static final String GetEventQuery = 
 				" SELECT "+AssociationEvents.alias+".id,"+AssociationEvents.alias+".dateEvent," +
 		        " "+AssociationEvents.alias+".LibelleEvent, "+AssociationEvents.alias+".descriptionEvent," +
 		        " "+AssociationEvents.alias+".nbParticipant,"+AssociationEvents.alias+".idAssociation" +
 		        " FROM "+AssociationEvents+" "+AssociationEvents.alias+
 		        " WHERE 1=1 ";
 		
-		public static final String GetEventParticipant = 
+		public static final String GetEventParticipantQuery = 
 				" SELECT "+ParticipantEvents.alias+".idAssociation,"+ParticipantEvents.alias+".idUtilisateur,"+
 				" "+ParticipantEvents.alias+".Presence,"+ParticipantEvents.alias+".idEvenement,"+
 				" "+Utilisateurs.alias+".nomUtilisateur,"+Utilisateurs.alias+".prenomUtilisateur,"+
@@ -68,7 +68,7 @@ public final class DB {
 				" "+makeJoin("LEFT", Utilisateurs, TypeUtilisateurs, "idType", "id") +
 				" WHERE 1=1 ";
 		
-		public static final String GetFicheParticipant =
+		public static final String GetFicheParticipantQuery =
 				" SELECT "+FicheParticipant.alias+".id,"+FicheParticipant.alias+".idUtilisateur,"+
 				" "+FicheParticipant.alias+".idAssociation,"+FicheParticipant.alias+".dateInscription,"+
 				" "+FicheParticipant.alias+".dateDesinscription,"+FicheParticipant.alias+".Notes,"+
@@ -88,28 +88,28 @@ public final class DB {
 				" Where 1=1 ";
 		
 		public static final String DeleteUserPQuery = 
-				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ";
+				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ;";
 				
 		public static final String DeleteTypeUserPQuery = 
-				" DELETE FROM "+TypeUtilisateurs+" WHERE "+TypeUtilisateurs+".id = ? ";
+				" DELETE FROM "+TypeUtilisateurs+" WHERE "+TypeUtilisateurs+".id = ? ;";
 		
 		public static final String DeleteParticipantEventsPQuery = 
-				" DELETE FROM "+ParticipantEvents+" WHERE "+ParticipantEvents+".id = ? ";
+				" DELETE FROM "+ParticipantEvents+" WHERE "+ParticipantEvents+".id = ? ;";
 		
 		public static final String DeleteFicheParticipantPQuery = 
-				" DELETE FROM "+FicheParticipant+" WHERE "+FicheParticipant+".id = ? ";
+				" DELETE FROM "+FicheParticipant+" WHERE "+FicheParticipant+".id = ? ;";
 		
 		public static final String DeleteAuthentificationPQuery = 
-				" DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ";
+				" DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ;";
 		
 		public static final String DeleteAssociationEventPQuery = 
-				" DELETE FROM "+AssociationEvents+" WHERE "+AssociationEvents+".id = ? ";
+				" DELETE FROM "+AssociationEvents+" WHERE "+AssociationEvents+".id = ? ;";
 		
 		public static final String DeleteAssociationDescPQuery = 
-				" DELETE FROM "+AssociationDesc+" WHERE "+AssociationDesc+".id = ? ";
+				" DELETE FROM "+AssociationDesc+" WHERE "+AssociationDesc+".id = ? ;";
 		
-		public static final String DeleteAssociation = 
-				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ";
+		public static final String DeleteAssociationPQuery = 
+				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ;";
 		
 		public static final String InsertNewUser = 
 				" START TRANSACTION; " + 
@@ -121,6 +121,20 @@ public final class DB {
 					" VALUES (@id, ?, ?); "+
 				" END TRANSACTION; ";
 		
+		public static final String InsertNewAssociation = 
+				" START TRANSACTION; " + 
+					    " INSERT INTO " + Association + " (LibelleAssociation) VALUES ( ? ); " + 
+						" SET @id = LAST_INSERT_ID(); " +
+						" INSERT INTO " + AssociationDesc + " (idAssociation, idPresident, nomAssoc ," + 
+						" nbParticipant, Description) " +
+						" VALUES (@id, ?, ?, ? , ?); "+
+				" END TRANSACTION; ";
+				
+		public static final String InsertNewTypeUser = 
+				"INSERT INTO " + TypeUtilisateurs + " (id, Libelle) VALUES (? , ? );"; 
+
+		public static final String CheckExistingFieldPQuery = 
+				" SELECT IF (EXISTS(SELECT ? FROM ? WHERE id = ?), 1, 0) as Existence; ";
 				
 		
 		

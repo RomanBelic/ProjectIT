@@ -134,7 +134,7 @@ public ParticipantEvents getParticipantEvents (String filtre, HashMap<Integer,Ob
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
-		String req = Queries.GetEvent + filtre;
+		String req = Queries.GetEventQuery + filtre;
 		
 		ArrayList <AssociationEvent> lstEvent = new  ArrayList<AssociationEvent>();
 		try {
@@ -172,7 +172,7 @@ public ParticipantEvents getParticipantEvents (String filtre, HashMap<Integer,Ob
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
-		String req = Queries.GetEvent + filtre;
+		String req = Queries.GetEventQuery + filtre;
 		
 		AssociationEvent ae = new AssociationEvent ();
 		try {
