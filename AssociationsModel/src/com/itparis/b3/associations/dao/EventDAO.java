@@ -63,7 +63,7 @@ public class EventDAO {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
-		String req = Queries.GetEventParticipant + filtre;
+		String req = Queries.GetEventParticipantQuery + filtre;
 		
 		ArrayList <ParticipantEvents> lstParticipant = new  ArrayList<ParticipantEvents>();
 		try {
@@ -100,7 +100,7 @@ public ParticipantEvents getParticipantEvents (String filtre, HashMap<Integer,Ob
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
-		String req = Queries.GetEventParticipant + filtre;
+		String req = Queries.GetEventParticipantQuery + filtre;
 		
 		ParticipantEvents pe = new ParticipantEvents ();
 		try {

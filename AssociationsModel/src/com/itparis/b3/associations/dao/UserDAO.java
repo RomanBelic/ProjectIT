@@ -161,7 +161,7 @@ public class UserDAO {
 		ResultSet rs = null;
 		ArrayList <FicheParticipant> lstFiche = new  ArrayList<FicheParticipant>();
 		
-	    String req = Queries.GetFicheParticipant + filtre;
+	    String req = Queries.GetFicheParticipantQuery+ filtre;
 	    
 	    try {
 	    	con = Connexion.getConnection();
@@ -198,7 +198,7 @@ public class UserDAO {
 		ResultSet rs = null;
 		FicheParticipant fp = new  FicheParticipant();
 		
-	    String req = Queries.GetFicheParticipant + filtre;
+	    String req = Queries.GetFicheParticipantQuery + filtre;
 	    
 	    try {
 	    	con = Connexion.getConnection();

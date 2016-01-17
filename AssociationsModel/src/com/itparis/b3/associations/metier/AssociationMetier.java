@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.itparis.b3.associations.beans.Association;
 import com.itparis.b3.associations.common.DBSpecialValues.*;
+import com.itparis.b3.associations.common.DB.Queries;
+import com.itparis.b3.associations.common.ReqMetier;
 import com.itparis.b3.associations.common.Utilities;
 import com.itparis.b3.associations.common.DB;
 import com.itparis.b3.associations.dao.AssociationDAO;
@@ -62,6 +64,23 @@ public class AssociationMetier {
 	    catch (IllegalAccessException | InstantiationException e) {}
         return a;
 	}
+	
+	public static int InsertAssociation (int idAssociation, int idPresident, String nomAssoc,
+                                         int nbParticipant, String Description) {
+		
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idAssociation);
+		lstPValues.add(idPresident);
+		lstPValues.add(nomAssoc);
+		lstPValues.add(nbParticipant);
+		lstPValues.add(Description);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.InsertNewAssociation;
+	    int rows = ReqMetier.executePreparedQuery(req, params);
+	    return rows;	
+	}
+	
+	
 	
 	
 	

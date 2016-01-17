@@ -127,16 +127,33 @@ public final class DB {
 						" SET @id = LAST_INSERT_ID(); " +
 						" INSERT INTO " + AssociationDesc + " (idAssociation, idPresident, nomAssoc ," + 
 						" nbParticipant, Description) " +
-						" VALUES (@id, ?, ?, ? , ?); "+
+						" VALUES (@id, ?, ?, ?, ?); "+
 				" END TRANSACTION; ";
 				
 		public static final String InsertNewTypeUser = 
 				"INSERT INTO " + TypeUtilisateurs + " (id, Libelle) VALUES (? , ? );"; 
 
-		public static final String CheckExistingFieldPQuery = 
-				" SELECT IF (EXISTS(SELECT ? FROM ? WHERE id = ?), 1, 0) as Existence; ";
-				
+		public static final String InsertNewEvent = 
+				"INSERT INTO " + AssociationEvents + " (dateEvent, LibelleEvent, descriptionEvent,"+
+				"nbParticipant, idAssociation) "+
+			    "VALUES (?, ?, ?, ?, ? );";
 		
+		public static final String InsertNewUserIntoAssociation = 
+				"INSERT INTO " + FicheParticipant + " (idUtilisateur, dateInscription, idAssociation)"+
+			    "VALUES (?, ?, ? );";
+		
+		public static final String InsertNewParticipantEvents = 
+				"INSERT INTO " + ParticipantEvents + " (idAssociation, idEvenement, idUtilisateur)"+
+			    "VALUES (?, ?, ? );";
+
+		public static final String CheckExistingFieldPQuery (Table table, String field)
+		{
+		  return " SELECT IF (EXISTS " +
+		  		 "(SELECT " + field + " FROM " + table + " WHERE " + field + " = ? ), 1, 0) " +
+		  		 "as Existence; ";
+		}
+				
+
 		
 		
 		
