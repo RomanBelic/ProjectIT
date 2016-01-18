@@ -8,7 +8,9 @@ import com.itparis.b3.associations.beans.FicheParticipant;
 import com.itparis.b3.associations.beans.User;
 import com.itparis.b3.associations.dao.UserDAO;
 import com.itparis.b3.associations.common.DB;
+import com.itparis.b3.associations.common.ReqMetier;
 import com.itparis.b3.associations.common.Utilities;
+import com.itparis.b3.associations.common.DB.Queries;
 import com.itparis.b3.associations.common.DBSpecialValues.*;
 
 public class UserMetier {
@@ -152,7 +154,58 @@ public class UserMetier {
         return u;
 	}
 	
+	public static int insertNewUser (int idType, String nomUtilisateur, String prenomUtilisateur, 
+			String adrUtilisateur, String telUtilisateur, int Statut, String login, String mdp){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idType);
+		lstPValues.add(nomUtilisateur);
+		lstPValues.add(prenomUtilisateur);
+		lstPValues.add(adrUtilisateur);
+		lstPValues.add(telUtilisateur);
+		lstPValues.add(Statut);
+		lstPValues.add(login);
+		lstPValues.add(mdp);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.InsertNewUser;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int insertNewTypeUser (int id, String Libelle){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(id);
+		lstPValues.add(Libelle);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.InsertNewTypeUser;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int insertNewUserIntoAssociation (int idUtilisateur, String dateInscription,
+			                                        int idAssociation){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idUtilisateur);
+		lstPValues.add(dateInscription);
+		lstPValues.add(idAssociation);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.InsertNewUserIntoAssociation;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int deleteUser (int idUser){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idUser);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteUserAndAuthPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
 	
 	
+	
+	
+
+
 
 }

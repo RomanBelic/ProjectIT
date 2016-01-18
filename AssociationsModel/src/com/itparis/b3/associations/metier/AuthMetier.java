@@ -1,7 +1,13 @@
 package com.itparis.b3.associations.metier;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import com.itparis.b3.associations.beans.Authentification;
+import com.itparis.b3.associations.common.ReqMetier;
 import com.itparis.b3.associations.common.Utilities;
+import com.itparis.b3.associations.common.DB.Queries;
 import com.itparis.b3.associations.dao.AuthDAO;
 
 public class AuthMetier {
@@ -30,7 +36,14 @@ public class AuthMetier {
 		return auth;
 	}
 	
-	
+	public static int deleteAuthentification (int idUser){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idUser);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteAuthentificationPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
 	
 
 }

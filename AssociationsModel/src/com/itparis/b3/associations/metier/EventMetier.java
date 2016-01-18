@@ -7,8 +7,10 @@ import java.util.List;
 import com.itparis.b3.associations.beans.AssociationEvent;
 import com.itparis.b3.associations.beans.ParticipantEvents;
 import com.itparis.b3.associations.common.DB;
+import com.itparis.b3.associations.common.ReqMetier;
 import com.itparis.b3.associations.common.Utilities;
 import com.itparis.b3.associations.dao.EventDAO;
+import com.itparis.b3.associations.common.DB.Queries;
 import com.itparis.b3.associations.common.DBSpecialValues.*;
 
 public class EventMetier {
@@ -116,6 +118,51 @@ public class EventMetier {
 		} catch (InstantiationException | IllegalAccessException e) {}
 	
 	    return pe;
+	}
+	
+	public static int insertNewEvent (String dateEvent, String LibelleEvent, String descriptionEvent,
+			int nbParticipant, int idAssociation) {
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(dateEvent);
+		lstPValues.add(LibelleEvent);
+		lstPValues.add(descriptionEvent);
+		lstPValues.add(nbParticipant);
+		lstPValues.add(idAssociation);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.InsertNewEvent;
+	    int rows = ReqMetier.executePreparedQuery(req, params);
+	    return rows;	
+	}
+	
+	public static int insertNewParticipantEvent (int idAssociation, int idEvenement, int idUtilisateur) {
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idAssociation);
+		lstPValues.add(idEvenement);
+		lstPValues.add(idUtilisateur);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.InsertNewParticipantEvents;
+	    int rows = ReqMetier.executePreparedQuery(req, params);
+	    return rows;	
+	}
+	
+	public static int deleteAssociationEvent (int idEvent){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idEvent);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteAssociationEventPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int deleteParticipantEvent (int idUtilisateur, int idEvenement, int idAssociation){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idUtilisateur);
+		lstPValues.add(idEvenement);
+		lstPValues.add(idAssociation);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteParticipantEventPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
 	}
 	
 	

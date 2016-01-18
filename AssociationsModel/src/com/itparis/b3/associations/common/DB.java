@@ -87,15 +87,13 @@ public final class DB {
 				" FROM " +Utilisateurs+" "+Utilisateurs.alias +
 				" Where 1=1 ";
 		
-		public static final String DeleteUserPQuery = 
-				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ;";
-				
 		public static final String DeleteTypeUserPQuery = 
 				" DELETE FROM "+TypeUtilisateurs+" WHERE "+TypeUtilisateurs+".id = ? ;";
 		
-		public static final String DeleteParticipantEventsPQuery = 
-				" DELETE FROM "+ParticipantEvents+" WHERE "+ParticipantEvents+".id = ? ;";
-		
+		public static final String DeleteParticipantEventPQuery = 
+				" DELETE FROM "+ParticipantEvents+" WHERE "+ParticipantEvents+".idUtilisateur = ? "+
+		        " AND "+ParticipantEvents+".idEvenement = ? AND "+ParticipantEvents+".idAssociation = ? ;";
+				
 		public static final String DeleteFicheParticipantPQuery = 
 				" DELETE FROM "+FicheParticipant+" WHERE "+FicheParticipant+".id = ? ;";
 		
@@ -110,6 +108,10 @@ public final class DB {
 		
 		public static final String DeleteAssociationPQuery = 
 				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ;";
+		
+		public static final String DeleteUserAndAuthPQuery = 
+				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ; " +
+		        " DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ;";
 		
 		public static final String InsertNewUser = 
 				" START TRANSACTION; " + 
