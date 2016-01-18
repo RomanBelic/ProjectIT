@@ -296,5 +296,82 @@ public class UserDAO {
 	    catch (Exception e){}
 		return u;
 	}
+	
+	
+	public ArrayList <TypeUser> getListTypeUser (String filtre, HashMap<Integer, Object> params)
+	{
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		ArrayList <TypeUser> lstType = new  ArrayList<TypeUser>();
+		
+	    String req = Queries.GetTypeUserQuery + filtre;
+	    
+	    try {
+	    	con = Connexion.getConnection();
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	        rs = st.executeQuery();
+	        while (rs.next()) {
+	        	TypeUser t = new TypeUser ();
+	        	t.setId(rs.getInt("id"));
+	        	t.setLibelle(rs.getString("Libelle"));
+	            lstType.add(t);
+	        }
+	    } 
+	    catch (Exception e){
+			e.getMessage();
+			e.printStackTrace();
+			TypeUser t = new TypeUser();
+			lstType.add(t);
+			Utilities.setError(lstType);
+	    }
+	    try {
+	    	if (rs != null) rs.close();
+	    	if (st != null) st.close();
+	    	if (con != null) con.close();
+	    }
+	    catch (Exception e){}
+		return lstType;
+	}
+	
+	public TypeUser getTypeUser (String filtre, HashMap<Integer, Object> params)
+	{
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+	    TypeUser t = new TypeUser ();
+		
+	    String req = Queries.GetTypeUserQuery + filtre;
+	    
+	    try {
+	    	con = Connexion.getConnection();
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	        rs = st.executeQuery();
+	        while (rs.next()) {
+	        	t.setId(rs.getInt("id"));
+	        	t.setLibelle(rs.getString("Libelle"));
+	        }
+	    } 
+	    catch (Exception e){
+			e.getMessage();
+			e.printStackTrace();
+			Utilities.setError(t);
+	    }
+	    try {
+	    	if (rs != null) rs.close();
+	    	if (st != null) st.close();
+	    	if (con != null) con.close();
+	    }
+	    catch (Exception e){}
+		return t;
+	}
+	
 
 }

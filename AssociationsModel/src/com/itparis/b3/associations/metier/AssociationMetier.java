@@ -98,6 +98,15 @@ public class AssociationMetier {
 		return rows;
 	}
 	
+	public static int deleteFicheparticipant (int idFiche){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idFiche);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteFicheParticipantPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
 	
 	
 	

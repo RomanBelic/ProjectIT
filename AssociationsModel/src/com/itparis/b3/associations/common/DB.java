@@ -87,6 +87,10 @@ public final class DB {
 				" FROM " +Utilisateurs+" "+Utilisateurs.alias +
 				" Where 1=1 ";
 		
+		public static final String GetTypeUserQuery = 
+				" SELECT " + TypeUtilisateurs.alias + ".id, " + TypeUtilisateurs.alias + ".Libelle " +
+				" FROM " + TypeUtilisateurs + " " + TypeUtilisateurs.alias + " WHERE 1=1 ";
+
 		public static final String DeleteTypeUserPQuery = 
 				" DELETE FROM "+TypeUtilisateurs+" WHERE "+TypeUtilisateurs+".id = ? ;";
 		
@@ -110,6 +114,7 @@ public final class DB {
 				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ;";
 		
 		public static final String DeleteUserAndAuthPQuery = 
+				" START TRANSACTION; " + 
 				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ; " +
 		        " DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ;";
 		
@@ -120,8 +125,7 @@ public final class DB {
 				    " VALUES (?, ?, ?, ?, ?, ?); " +
 					" SET @id = LAST_INSERT_ID(); " +
 					" INSERT INTO "+Authentification+" (idUtilisateur, Login, MDP) " +
-					" VALUES (@id, ?, ?); "+
-				" END TRANSACTION; ";
+					" VALUES (@id, ?, ?); ";
 		
 		public static final String InsertNewAssociation = 
 				" START TRANSACTION; " + 
@@ -129,12 +133,16 @@ public final class DB {
 						" SET @id = LAST_INSERT_ID(); " +
 						" INSERT INTO " + AssociationDesc + " (idAssociation, idPresident, nomAssoc ," + 
 						" nbParticipant, Description) " +
-						" VALUES (@id, ?, ?, ?, ?); "+
-				" END TRANSACTION; ";
+						" VALUES (@id, ?, ?, ?, ?); ";
 				
 		public static final String InsertNewTypeUser = 
 				"INSERT INTO " + TypeUtilisateurs + " (id, Libelle) VALUES (? , ? );"; 
-
+		
+		public static final String InserNewTypeUser2 = 
+				"START TRANSACTION; " +
+				"SELECT IF (EXISTS(SELECT id FROM "+TypeUtilisateurs+" WHERE id = ? ), 1, 0) as Existence; "+
+				"INSERT INTO " + TypeUtilisateurs + " (id, Libelle) VALUES (? , ? );"; 
+		
 		public static final String InsertNewEvent = 
 				"INSERT INTO " + AssociationEvents + " (dateEvent, LibelleEvent, descriptionEvent,"+
 				"nbParticipant, idAssociation) "+

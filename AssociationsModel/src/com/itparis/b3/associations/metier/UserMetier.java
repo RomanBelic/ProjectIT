@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.itparis.b3.associations.beans.FicheParticipant;
+import com.itparis.b3.associations.beans.TypeUser;
 import com.itparis.b3.associations.beans.User;
 import com.itparis.b3.associations.dao.UserDAO;
 import com.itparis.b3.associations.common.DB;
@@ -119,7 +120,7 @@ public class UserMetier {
         filtre += " AND " +DB.Utilisateurs.alias+".Statut = ? ";
         
 		if (!Utilities.isNullOrEmptyString(userName)){
-			lstPValues.add(userName);
+			lstPValues.add(new PreparedLikeClause (userName));
 			filtre += " AND "+DB.Utilisateurs.alias+".nomUtilisateur LIKE ? ";
 		}
         if (!Utilities.isNullOrEmptyString(OrderBy)){
@@ -142,7 +143,7 @@ public class UserMetier {
 		List<Object> lstPValues = new ArrayList<Object>();
 		if (id > 0){
 			lstPValues.add(id);
-			filtre += " AND "+DB.Utilisateurs.alias+".id = "+id;
+			filtre += " AND "+DB.Utilisateurs.alias+".id = ? ";
 		}
 		
 		HashMap <Integer,Object> params = Utilities.putParams(lstPValues);
@@ -152,6 +153,43 @@ public class UserMetier {
 		} 
 		catch (InstantiationException  | IllegalAccessException e) {}
         return u;
+	}
+	
+	public static ArrayList<TypeUser> getListUserType (String Libelle, String OrderBy) {
+		ArrayList <TypeUser> lstType = new ArrayList<TypeUser> ();
+		String filtre = "";
+		List<Object> lstPValues = new ArrayList<Object>();
+		if (!Utilities.isNullOrEmptyString(Libelle)){
+			lstPValues.add(new PreparedLikeClause (Libelle));
+			filtre += " AND "+DB.TypeUtilisateurs.alias+".Libelle LIKE ? ";
+		}
+        if (!Utilities.isNullOrEmptyString(OrderBy)){
+        	filtre += " ORDER BY "+OrderBy;
+        }
+		HashMap <Integer,Object> params = Utilities.putParams(lstPValues);
+		
+		try {
+			lstType = UserDAO.class.newInstance().getListTypeUser(filtre, params);
+		} 
+		catch (InstantiationException  | IllegalAccessException e) {}
+        return lstType;
+	}
+
+	public static TypeUser getUserType (int id) {
+		TypeUser t = new TypeUser ();
+		String filtre = "";
+		List<Object> lstPValues = new ArrayList<Object>();
+		if (id > 0){
+			lstPValues.add(id);
+			filtre += " AND "+DB.TypeUtilisateurs.alias+".id = ? ";
+		}
+		HashMap <Integer,Object> params = Utilities.putParams(lstPValues);
+		
+		try {
+			t = UserDAO.class.newInstance().getTypeUser(filtre, params);
+		} 
+		catch (InstantiationException  | IllegalAccessException e) {}
+        return t;
 	}
 	
 	public static int insertNewUser (int idType, String nomUtilisateur, String prenomUtilisateur, 
@@ -198,6 +236,15 @@ public class UserMetier {
 		lstPValues.add(idUser);
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
 		String req = Queries.DeleteUserAndAuthPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int deleteTypeUser (int idType){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idType);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteTypeUserPQuery;
 		int rows = ReqMetier.executePreparedQuery(req, params);
 		return rows;
 	}
