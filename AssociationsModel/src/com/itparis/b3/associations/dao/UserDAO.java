@@ -373,5 +373,38 @@ public class UserDAO {
 		return t;
 	}
 	
+	public int insertIntoUserType (HashMap<Integer,Object> params) {
+		int res = -1;
+		Connection con = null;
+		PreparedStatement st = null;
+	    String req = Queries.InsertNewTypeUser2;
+	    try {
+	    	con = Connexion.getConnection();
+	    	st = con.prepareStatement(req);
+	    	
+	    	Utilities.setSQLParams(st, params);
+	    	
+	    	st.execute();
+	        
+	        res = st.getUpdateCount();
+	        ResultSet rs = st.getResultSet();
+	        if (rs.next()) {
+	        	if (rs.getInt("Existence") == 1)
+	        		res = - 1;
+	        }
+	    } 
+	    catch (Exception e){
+			e.getMessage();
+			e.printStackTrace();
+	    }
+	    try {
+	    	if (st != null) st.close();
+	    	if (con != null) con.close();
+	    }
+	    catch (Exception e){}
+		return res;
+	}
+	
+	
 
 }

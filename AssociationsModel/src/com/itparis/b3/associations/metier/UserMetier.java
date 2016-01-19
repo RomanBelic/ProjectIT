@@ -219,6 +219,21 @@ public class UserMetier {
 		return rows;
 	}
 	
+	public static int insertNewTypeUser2 (int id, String Libelle){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(id);
+		lstPValues.add(id);
+		lstPValues.add(Libelle);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		int rows = 0;
+		try {
+			rows = UserDAO.class.newInstance().insertIntoUserType(params);
+		} 
+		catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+		return rows;
+	}
+	
+	
 	public static int insertNewUserIntoAssociation (int idUtilisateur, String dateInscription,
 			                                        int idAssociation){
 		List<Object> lstPValues = new ArrayList<Object>();

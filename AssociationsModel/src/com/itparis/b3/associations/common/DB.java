@@ -138,7 +138,7 @@ public final class DB {
 		public static final String InsertNewTypeUser = 
 				"INSERT INTO " + TypeUtilisateurs + " (id, Libelle) VALUES (? , ? );"; 
 		
-		public static final String InserNewTypeUser2 = 
+		public static final String InsertNewTypeUser2 = 
 				"START TRANSACTION; " +
 				"SELECT IF (EXISTS(SELECT id FROM "+TypeUtilisateurs+" WHERE id = ? ), 1, 0) as Existence; "+
 				"INSERT INTO " + TypeUtilisateurs + " (id, Libelle) VALUES (? , ? );"; 
