@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import com.itparis.b3.associations.beans.*;
 import com.itparis.b3.associations.bin.Connexion;
+import com.itparis.b3.associations.common.DB;
 import com.itparis.b3.associations.common.Utilities;
 import com.itparis.b3.associations.common.DB.*;
 
@@ -374,30 +375,33 @@ public class UserDAO {
 	}
 	
 	public int insertIntoUserType (HashMap<Integer,Object> params) {
-		int res = -1;
+		int res = 0;
 		Connection con = null;
 		PreparedStatement st = null;
-	    String req = Queries.InsertNewTypeUser2;
+		ResultSet rs = null;
+	    String reqCheck = Queries.CheckExistingFieldPQuery(DB.TypeUtilisateurs, "id");
+	    String reqInsert = Queries.InsertNewTypeUser;
 	    try {
 	    	con = Connexion.getConnection();
-	    	st = con.prepareStatement(req);
-	    	
-	    	Utilities.setSQLParams(st, params);
-	    	
-	    	st.execute();
-	        
-	        res = st.getUpdateCount();
-	        ResultSet rs = st.getResultSet();
-	        if (rs.next()) {
-	        	if (rs.getInt("Existence") == 1)
-	        		res = - 1;
-	        }
+	    	st = con.prepareStatement(reqCheck);
+	    	st.setInt(1, (Integer.parseInt(params.entrySet().toArray()[0].toString().split("=")[1])));
+	    	rs = st.executeQuery();
+	    	if (rs.next()) {
+	    		res = rs.getInt("Existence");
+		    	if (res == 0) {
+		    		st = con.prepareStatement(reqInsert);
+		    		Utilities.setSQLParams(st, params);
+		    		res = st.executeUpdate();
+		    	}
+		    	else res = -1;
+	    	}
 	    } 
 	    catch (Exception e){
 			e.getMessage();
 			e.printStackTrace();
 	    }
 	    try {
+	    	if (rs != null) rs.close();
 	    	if (st != null) st.close();
 	    	if (con != null) con.close();
 	    }

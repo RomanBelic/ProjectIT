@@ -209,7 +209,7 @@ public class UserMetier {
 		return rows;
 	}
 	
-	public static int insertNewTypeUser (int id, String Libelle){
+	public static int insertNewTypeUserSimple (int id, String Libelle){
 		List<Object> lstPValues = new ArrayList<Object>();
 		lstPValues.add(id);
 		lstPValues.add(Libelle);
@@ -219,9 +219,8 @@ public class UserMetier {
 		return rows;
 	}
 	
-	public static int insertNewTypeUser2 (int id, String Libelle){
+	public static int insertNewTypeUserVerification (int id, String Libelle){
 		List<Object> lstPValues = new ArrayList<Object>();
-		lstPValues.add(id);
 		lstPValues.add(id);
 		lstPValues.add(Libelle);
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);

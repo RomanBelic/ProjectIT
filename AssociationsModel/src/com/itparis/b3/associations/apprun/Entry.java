@@ -1,8 +1,10 @@
 package com.itparis.b3.associations.apprun;
 
 import java.util.HashMap;
+
 import com.itparis.b3.associations.bin.Connexion;
 import com.itparis.b3.associations.common.Utilities;
+import com.itparis.b3.associations.metier.UserMetier;
 
 public class Entry {
 	
@@ -21,6 +23,8 @@ public class Entry {
 		
 		Entry entry = new Entry ();
 		entry.setConnectionArgs ();
+		
+		
 		
 	}
 	
