@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 import com.itparis.b3.associations.bin.Connexion;
 import com.itparis.b3.associations.common.Utilities;
-import com.itparis.b3.associations.metier.UserMetier;
+import com.itparis.b3.associations.metier.AssociationMetier;
 
 public class Entry {
 	
-	private void setConnectionArgs () {
+	public void setConnectionArgs () {
 		HashMap <String,String> settings = Utilities.loadConfig("config.txt", ">");
 		Connexion.setDriver(settings.get("Driver"));
 		Connexion.setDriverClass(settings.get("DriverClass"));
@@ -24,7 +24,8 @@ public class Entry {
 		Entry entry = new Entry ();
 		entry.setConnectionArgs ();
 		
-		
+		int i = AssociationMetier.insertAssociation("BDA", 2, "Bureau des arts", 50, 
+			     "Association des arts et creativite");
 		
 	}
 	

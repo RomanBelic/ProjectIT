@@ -110,13 +110,17 @@ public final class DB {
 		public static final String DeleteAssociationDescPQuery = 
 				" DELETE FROM "+AssociationDesc+" WHERE "+AssociationDesc+".id = ? ;";
 		
+		public static final String DeleteAssociationAndDescPQuery = 
+				" DELETE FROM "+AssociationDesc+" WHERE "+AssociationDesc+".idAssociation = ? ;" +
+				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ;" ;
+		
 		public static final String DeleteAssociationPQuery = 
 				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ;";
 		
 		public static final String DeleteUserAndAuthPQuery = 
 				" START TRANSACTION; " + 
-				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ; " +
-		        " DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ;";
+			    " DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ;" +
+				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ; ";
 		
 		public static final String InsertNewUser = 
 				" START TRANSACTION; " + 

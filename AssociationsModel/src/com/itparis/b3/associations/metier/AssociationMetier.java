@@ -65,11 +65,11 @@ public class AssociationMetier {
         return a;
 	}
 	
-	public static int insertAssociation (int idAssociation, int idPresident, String nomAssoc,
+	public static int insertAssociation (String Libelle, int idPresident, String nomAssoc,
                                          int nbParticipant, String Description) {
 		
 		List<Object> lstPValues = new ArrayList<Object>();
-		lstPValues.add(idAssociation);
+		lstPValues.add(Libelle);
 		lstPValues.add(idPresident);
 		lstPValues.add(nomAssoc);
 		lstPValues.add(nbParticipant);
@@ -94,6 +94,16 @@ public class AssociationMetier {
 		lstPValues.add(idDesc);
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
 		String req = Queries.DeleteAssociationDescPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int deleteAssociationAndDesc (int idAssociation){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idAssociation);
+		lstPValues.add(idAssociation);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteAssociationAndDescPQuery;
 		int rows = ReqMetier.executePreparedQuery(req, params);
 		return rows;
 	}

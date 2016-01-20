@@ -2,6 +2,7 @@ package com.itparis.b3.associations.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -383,6 +384,7 @@ public class UserDAO {
 	    String reqInsert = Queries.InsertNewTypeUser;
 	    try {
 	    	con = Connexion.getConnection();
+	    	con.setAutoCommit(false);
 	    	st = con.prepareStatement(reqCheck);
 	    	st.setInt(1, (Integer.parseInt(params.entrySet().toArray()[0].toString().split("=")[1])));
 	    	rs = st.executeQuery();
@@ -395,11 +397,15 @@ public class UserDAO {
 		    	}
 		    	else res = -1;
 	    	}
+	    	con.commit();
 	    } 
 	    catch (Exception e){
 			e.getMessage();
 			e.printStackTrace();
-	    }
+			try {
+				con.rollback();
+			} catch (SQLException e1) {e1.printStackTrace();}
+			}
 	    try {
 	    	if (rs != null) rs.close();
 	    	if (st != null) st.close();

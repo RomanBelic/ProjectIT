@@ -122,8 +122,9 @@ public class Utilities {
 	public static void setListError (List<? extends Object> lstObj) {
 		
 		if (!isNullOrEmptyList(lstObj)) {
-			Object o = lstObj.get(0);
-			setError (o);
+			for (Object obj : lstObj) {
+				setError (obj);
+			}
 		}
 	}
 	

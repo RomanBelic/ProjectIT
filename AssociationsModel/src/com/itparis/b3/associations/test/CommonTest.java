@@ -15,6 +15,7 @@ public class CommonTest {
 		assertEquals("2000-12-24", Utilities.convertFRDateToDBDate("24/12/2000", '/'));
 		
 		assertEquals("test", Utilities.decodeStringFrom64Base(Utilities.encodeStringTo64Base("test")));
+		
 	}
 
 }
