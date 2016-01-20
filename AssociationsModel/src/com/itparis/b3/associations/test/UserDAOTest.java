@@ -19,7 +19,7 @@ public class UserDAOTest {
 	public void getListUserDAO() {
 		 assertEquals(4, UserMetier.getListUsers(0, 0, "").size());
 		 
-		 assertEquals(4, UserMetier.getListUsersByStatus(1, "","id").size());
+		 assertEquals(4, UserMetier.getListUsersForAdmin(1, "","id").size());
 	}
 	
 	@Test

@@ -49,10 +49,8 @@ public class EventMetier {
 		AssociationEvent ae = new AssociationEvent ();
 		String filtre = "";
 		List<Object> lstPValues = new ArrayList<Object>();
-		if (id > 0) {
-			lstPValues.add(id);
-			filtre += " AND "+DB.AssociationEvents.alias+".id = ? ";
-		}
+		lstPValues.add(id);
+		filtre += " AND "+DB.AssociationEvents.alias+".id = ? ";
 		
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues) ;
 		
@@ -98,18 +96,15 @@ public class EventMetier {
 	    ParticipantEvents pe = new ParticipantEvents();
      	String filtre = "";
      	List<Object> lstPValues = new ArrayList<Object>();
-		if (idAssoc > 0){
-			lstPValues.add(idAssoc);
-	    	filtre += " AND "+DB.ParticipantEvents.alias+".idAssociation = ? ";
-		}
-		if (idUser > 0){
-			lstPValues.add(idUser);
-	     	filtre += " AND "+DB.ParticipantEvents.alias+".idUtilisateur = ? ";
-		}
-		if (idEvent > 0){
-			lstPValues.add(idEvent);
-		    filtre += " AND " +DB.ParticipantEvents.alias+".idEvenement = ? ";
-		}	
+     	
+		lstPValues.add(idAssoc);
+	    filtre += " AND "+DB.ParticipantEvents.alias+".idAssociation = ? ";
+		
+		lstPValues.add(idUser);
+	    filtre += " AND "+DB.ParticipantEvents.alias+".idUtilisateur = ? ";
+	
+		lstPValues.add(idEvent);
+	    filtre += " AND " +DB.ParticipantEvents.alias+".idEvenement = ? ";
 		
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
 		

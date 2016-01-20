@@ -47,10 +47,9 @@ public class UserMetier {
 		User u = new User ();
 		String filtre = "";
 		List<Object> lstPValues = new ArrayList<Object>();
-		if (id > 0){
-			lstPValues.add(id);
-			filtre += " AND "+DB.Utilisateurs.alias+".id = ? ";
-		}
+		lstPValues.add(id);
+		
+		filtre += " AND "+DB.Utilisateurs.alias+".id = ? ";
 			
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
 		
@@ -94,14 +93,32 @@ public class UserMetier {
 		catch (InstantiationException | IllegalAccessException e) {}
 		return lstFiche;
 	}
+	public static FicheParticipant getFicheParticipantByIdUserAndIdAssoc (int idUser, int idAssoc) {	
+		FicheParticipant fp = new FicheParticipant();
+		String filtre = "";
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idUser);
+		lstPValues.add(idAssoc);
+		
+	    filtre += " AND "+DB.FicheParticipant.alias+".idUtilisateur = ? " +
+	    		  " AND "+DB.FicheParticipant.alias+".idAssociation = ? ";
+		
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		
+		try {
+			fp = UserDAO.class.newInstance().getFicheParticipant(filtre, params);
+		} 
+		catch (InstantiationException | IllegalAccessException e) {}
+		return fp;
+	}
+	
 	public static FicheParticipant getFicheParticipant (int idFiche) {	
 		FicheParticipant fp = new FicheParticipant();
 		String filtre = "";
 		List<Object> lstPValues = new ArrayList<Object>();
-		if (idFiche > 0){
-			lstPValues.add(idFiche);
-	    	filtre += " AND "+DB.FicheParticipant.alias+".id = ? ";
-		}
+		lstPValues.add(idFiche);
+		
+	    filtre += " AND "+DB.FicheParticipant.alias+".id = ? ";
 		
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
 		
@@ -112,11 +129,12 @@ public class UserMetier {
 		return fp;
 		}
 	
-	public static ArrayList<User> getListUsersByStatus (int status, String userName, String OrderBy) {
+	public static ArrayList<User> getListUsersForAdmin (int status, String userName, String OrderBy) {
 		ArrayList <User> lstUser = new ArrayList<User> ();
 		String filtre = "";
 		List <Object> lstPValues = new ArrayList<Object> ();
 		lstPValues.add(status);
+		
         filtre += " AND " +DB.Utilisateurs.alias+".Statut = ? ";
         
 		if (!Utilities.isNullOrEmptyString(userName)){
@@ -130,7 +148,7 @@ public class UserMetier {
         HashMap <Integer,Object> params = Utilities.putParams(lstPValues);
         
 		try {
-			lstUser = UserDAO.class.newInstance().getListUserByState(filtre, params);
+			lstUser = UserDAO.class.newInstance().getListUsersSimple(filtre, params);
 		}
 		catch (InstantiationException | IllegalAccessException e) {}
 		
@@ -141,10 +159,9 @@ public class UserMetier {
 		User u = new User ();
 		String filtre = "";
 		List<Object> lstPValues = new ArrayList<Object>();
-		if (id > 0){
-			lstPValues.add(id);
-			filtre += " AND "+DB.Utilisateurs.alias+".id = ? ";
-		}
+		lstPValues.add(id);
+		
+		filtre += " AND "+DB.Utilisateurs.alias+".id = ? ";
 		
 		HashMap <Integer,Object> params = Utilities.putParams(lstPValues);
 		
@@ -179,10 +196,10 @@ public class UserMetier {
 		TypeUser t = new TypeUser ();
 		String filtre = "";
 		List<Object> lstPValues = new ArrayList<Object>();
-		if (id > 0){
-			lstPValues.add(id);
-			filtre += " AND "+DB.TypeUtilisateurs.alias+".id = ? ";
-		}
+		lstPValues.add(id);
+		
+		filtre += " AND "+DB.TypeUtilisateurs.alias+".id = ? ";
+
 		HashMap <Integer,Object> params = Utilities.putParams(lstPValues);
 		
 		try {
@@ -209,16 +226,6 @@ public class UserMetier {
 		return rows;
 	}
 	
-	public static int insertNewTypeUserSimple (int id, String Libelle){
-		List<Object> lstPValues = new ArrayList<Object>();
-		lstPValues.add(id);
-		lstPValues.add(Libelle);
-		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
-		String req = Queries.InsertNewTypeUser;
-		int rows = ReqMetier.executePreparedQuery(req, params);
-		return rows;
-	}
-	
 	public static int insertNewTypeUserVerification (int id, String Libelle){
 		List<Object> lstPValues = new ArrayList<Object>();
 		lstPValues.add(id);
@@ -231,20 +238,7 @@ public class UserMetier {
 		catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
 		return rows;
 	}
-	
-	
-	public static int insertNewUserIntoAssociation (int idUtilisateur, String dateInscription,
-			                                        int idAssociation){
-		List<Object> lstPValues = new ArrayList<Object>();
-		lstPValues.add(idUtilisateur);
-		lstPValues.add(dateInscription);
-		lstPValues.add(idAssociation);
-		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
-		String req = Queries.InsertNewUserIntoAssociation;
-		int rows = ReqMetier.executePreparedQuery(req, params);
-		return rows;
-	}
-	
+
 	public static int deleteUser (int idUser){
 		List<Object> lstPValues = new ArrayList<Object>();
 		lstPValues.add(idUser);

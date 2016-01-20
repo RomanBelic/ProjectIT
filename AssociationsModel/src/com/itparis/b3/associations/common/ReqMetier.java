@@ -57,8 +57,9 @@ public class ReqMetier {
 			
 			Utilities.setSQLParams(st, params);
 			
-			rows = st.executeUpdate();
-			con.commit();
+		    rows = st.executeUpdate();
+			con.commit();  
+			
 		} catch (Exception e) {
 			e.getMessage();
 			e.printStackTrace();

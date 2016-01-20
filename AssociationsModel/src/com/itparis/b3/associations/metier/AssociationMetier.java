@@ -51,10 +51,8 @@ public class AssociationMetier {
 		Association a = new Association ();
 		String filtre = "";
 		List<Object> lstPValues = new ArrayList<Object>();
-		if (id > 0){
-			lstPValues.add(id);
-			filtre += " AND " +DB.Association.alias+".id = ? ";
-		}
+		lstPValues.add(id);
+		filtre += " AND " +DB.Association.alias+".id = ? ";
 		
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
 		
@@ -80,23 +78,18 @@ public class AssociationMetier {
 	    return rows;	
 	}
 	
-	public static int deleteAssociation (int idAssociation){
+	public static int insertNewUserIntoAssociation (int idUtilisateur, String dateInscription,
+													int idAssociation){
 		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idUtilisateur);
+		lstPValues.add(dateInscription);
 		lstPValues.add(idAssociation);
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
-		String req = Queries.DeleteAssociationPQuery;
+		String req = Queries.InsertNewUserIntoAssociation;
 		int rows = ReqMetier.executePreparedQuery(req, params);
 		return rows;
-	}
+	}	
 	
-	public static int deleteAssociationDesc (int idDesc){
-		List<Object> lstPValues = new ArrayList<Object>();
-		lstPValues.add(idDesc);
-		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
-		String req = Queries.DeleteAssociationDescPQuery;
-		int rows = ReqMetier.executePreparedQuery(req, params);
-		return rows;
-	}
 	
 	public static int deleteAssociationAndDesc (int idAssociation){
 		List<Object> lstPValues = new ArrayList<Object>();
@@ -108,7 +101,7 @@ public class AssociationMetier {
 		return rows;
 	}
 	
-	public static int deleteFicheparticipant (int idFiche){
+	public static int deleteUserAssocationFiche (int idFiche){
 		List<Object> lstPValues = new ArrayList<Object>();
 		lstPValues.add(idFiche);
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
@@ -117,6 +110,15 @@ public class AssociationMetier {
 		return rows;
 	}
 	
+	public static int deleteUserFromAssociation (int idUser, int idAssociation){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idUser);
+		lstPValues.add(idAssociation);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.DeleteUserFromAssociationPQuery;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
 	
 	
 	

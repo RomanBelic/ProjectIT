@@ -66,7 +66,7 @@ public final class DB {
 				" FROM "+ParticipantEvents+" "+ParticipantEvents.alias +
 				" "+makeJoin("LEFT", ParticipantEvents, Utilisateurs, "idUtilisateur", "id") +
 				" "+makeJoin("LEFT", Utilisateurs, TypeUtilisateurs, "idType", "id") +
-				" WHERE 1=1 ";
+				" WHERE 1=1 AND " +Utilisateurs.alias+".Statut = 1 ";
 		
 		public static final String GetFicheParticipantQuery =
 				" SELECT "+FicheParticipant.alias+".id,"+FicheParticipant.alias+".idUtilisateur,"+
@@ -79,9 +79,9 @@ public final class DB {
 				" FROM "+FicheParticipant+" "+FicheParticipant.alias+
 				" "+makeJoin("LEFT", FicheParticipant, Utilisateurs, "idUtilisateur", "id")+
 				" "+makeJoin("LEFT", Utilisateurs, TypeUtilisateurs, "idType", "id")+
-				" WHERE 1=1 ";
+				" WHERE 1=1 AND " +Utilisateurs.alias+".Statut = 1 ";
 		
-		public static final String GetUserByStatusQuery = 
+		public static final String GetUserSimple = 
 				" SELECT "+Utilisateurs.alias+".nomUtilisateur, "+Utilisateurs.alias+".prenomUtilisateur," +
 				" "+Utilisateurs.alias+".id,"+Utilisateurs.alias+".Statut"+ 
 				" FROM " +Utilisateurs+" "+Utilisateurs.alias +
@@ -101,43 +101,38 @@ public final class DB {
 		public static final String DeleteFicheParticipantPQuery = 
 				" DELETE FROM "+FicheParticipant+" WHERE "+FicheParticipant+".id = ? ;";
 		
+		public static final String DeleteUserFromAssociationPQuery = 
+				" DELETE FROM "+FicheParticipant+" WHERE "+FicheParticipant+".idUtilisateur = ? " + 
+		        " AND "+FicheParticipant+".idAssociation = ? ;";
+		
 		public static final String DeleteAuthentificationPQuery = 
 				" DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ;";
 		
 		public static final String DeleteAssociationEventPQuery = 
 				" DELETE FROM "+AssociationEvents+" WHERE "+AssociationEvents+".id = ? ;";
 		
-		public static final String DeleteAssociationDescPQuery = 
-				" DELETE FROM "+AssociationDesc+" WHERE "+AssociationDesc+".id = ? ;";
-		
 		public static final String DeleteAssociationAndDescPQuery = 
 				" DELETE FROM "+AssociationDesc+" WHERE "+AssociationDesc+".idAssociation = ? ;" +
 				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ;" ;
 		
-		public static final String DeleteAssociationPQuery = 
-				" DELETE FROM "+Association+" WHERE "+Association+".id = ? ;";
-		
-		public static final String DeleteUserAndAuthPQuery = 
-				" START TRANSACTION; " + 
+		public static final String DeleteUserAndAuthPQuery =  
 			    " DELETE FROM "+Authentification+" WHERE "+Authentification+".idUtilisateur = ? ;" +
 				" DELETE FROM "+Utilisateurs+" WHERE "+Utilisateurs+".id = ? ; ";
 		
 		public static final String InsertNewUser = 
-				" START TRANSACTION; " + 
-				    " INSERT INTO "+Utilisateurs+" (idType, nomUtilisateur, prenomUtilisateur, adrUtilisateur"+
-				    " , telUtilisateur, Statut) "+
-				    " VALUES (?, ?, ?, ?, ?, ?); " +
-					" SET @id = LAST_INSERT_ID(); " +
-					" INSERT INTO "+Authentification+" (idUtilisateur, Login, MDP) " +
-					" VALUES (@id, ?, ?); ";
+			    " INSERT INTO "+Utilisateurs+" (idType, nomUtilisateur, prenomUtilisateur, adrUtilisateur"+
+			    " , telUtilisateur, Statut) "+
+			    " VALUES (?, ?, ?, ?, ?, ?); " +
+				" SET @id = LAST_INSERT_ID(); " +
+				" INSERT INTO "+Authentification+" (idUtilisateur, Login, MDP) " +
+				" VALUES (@id, ?, ?); ";
 		
 		public static final String InsertNewAssociation = 
-				" START TRANSACTION; " + 
-					    " INSERT INTO " + Association + " (LibelleAssociation) VALUES ( ? ); " + 
-						" SET @id = LAST_INSERT_ID(); " +
-						" INSERT INTO " + AssociationDesc + " (idAssociation, idPresident, nomAssoc ," + 
-						" nbParticipant, Description) " +
-						" VALUES (@id, ?, ?, ?, ?); ";
+			    " INSERT INTO " + Association + " (LibelleAssociation) VALUES ( ? ); " + 
+				" SET @id = LAST_INSERT_ID(); " +
+				" INSERT INTO " + AssociationDesc + " (idAssociation, idPresident, nomAssoc ," + 
+				" nbParticipant, Description) " +
+				" VALUES (@id, ?, ?, ?, ?); ";
 				
 		public static final String InsertNewTypeUser = 
 				"INSERT INTO " + TypeUtilisateurs + " (id, Libelle) VALUES (? , ? );"; 

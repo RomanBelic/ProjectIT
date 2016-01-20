@@ -228,14 +228,14 @@ public class UserDAO {
 	}
 	
 	
-	public ArrayList <User> getListUserByState (String filtre, HashMap<Integer, Object> params)
+	public ArrayList <User> getListUsersSimple (String filtre, HashMap<Integer, Object> params)
 	{
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		ArrayList <User> lstUser = new  ArrayList<User>();
 		
-	    String req = Queries.GetUserByStatusQuery + filtre;
+	    String req = Queries.GetUserSimple + filtre;
 	    
 	    try {
 	    	con = Connexion.getConnection();
@@ -272,7 +272,7 @@ public class UserDAO {
 		ResultSet rs = null;
 		User u = new User();
 		
-	    String req = Queries.GetUserByStatusQuery + filtre;
+	    String req = Queries.GetUserSimple + filtre;
 	    
 	    try {
 	    	con = Connexion.getConnection();

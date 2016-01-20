@@ -3,14 +3,16 @@ package com.itparis.b3.associations.test;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized.Parameter;
 
 import com.itparis.b3.associations.apprun.Entry;
-import com.itparis.b3.associations.bin.Connexion;
 import com.itparis.b3.associations.common.DB;
 import com.itparis.b3.associations.metier.CommonMetier;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CommonDAOTest {
 	
 	@Parameter
@@ -27,7 +29,6 @@ public class CommonDAOTest {
 		assertEquals(1, CommonMetier.checkExistingField(DB.TypeUtilisateurs, "id", 1));
 		
 		assertEquals(0, CommonMetier.checkExistingField(DB.TypeUtilisateurs, "id", -1));
-		
 		
 	}
 
