@@ -70,9 +70,7 @@ public class EventDAOTest {
 	public void T6_insertParticipantEvent() {
 		event =  EventMetier.getListAssociationEvents(2, "Programmation", "2016-01-20", "").get(0);
 		
-		assertEquals(1, EventMetier.insertNewParticipantEvent(2, event.getId(), 4));
-		
-		System.out.println(event.getLibelleEvent());
+		assertEquals(1, EventMetier.insertNewParticipantEvent(2, event.getId(), 4));	
 	}
 	
 	@Test
