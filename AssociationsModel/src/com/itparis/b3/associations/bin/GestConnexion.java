@@ -3,25 +3,25 @@ package com.itparis.b3.associations.bin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-
+/**
+ * Gestionnaire de Connexion a la BDD<br>
+ * Ouvre le state automatiquement a la BDD<br>
+ * Retourne l'objet de State<br>
+ * Fermer le State et la Connexion<br>
+ * 
+ * Les proprietes de la Classe "GestConnexion" pointent vers les proprietes de la Classe "Connexion"<br>
+ * @return st {@link Statement} <br>
+ * @version 0.1 beta-test <br>
+ */
 public final class GestConnexion {
-	
-	/*
-	 * Gestionnaire de Connexion a la BDD
-	 * Ouvre le state automatiquement a la BDD
-	 * Retourne l'objet de State
-	 * Fermer le State et la Connexion
-	 * 
-	 * Les proprietes de la Classe "GestConnexion" pointent vers les proprietes de la Classe "Connexion"
-	 */
-	
+
 	private Connection con = null;
 	private Statement st = null;
-	private static GestConnexion instance = new GestConnexion ();
+	private static GestConnexion instance = null;
 	
 	private Statement returnStatement () {
-		
 		try {
+			instance = new GestConnexion ();
 			con = Connexion.getConnection();
 			st = con.createStatement();
 		}
@@ -34,8 +34,8 @@ public final class GestConnexion {
 	}
 	
 	private PreparedStatement returnPreparedStatement (String preparedQuery) {
-		
 		try {
+			instance = new GestConnexion ();
 			con = Connexion.getConnection();
 	        st = (PreparedStatement) con.prepareStatement(preparedQuery);
 		}
@@ -54,7 +54,9 @@ public final class GestConnexion {
 			instance.st.close();
 		if (instance.con != null)
 			instance.con.close();
+		if (instance != null )
+			instance.finalize();
 		}
-		catch (Exception e){e.getMessage();e.printStackTrace();}
+		catch (Throwable e){e.getMessage();e.printStackTrace();}
 	}
 }

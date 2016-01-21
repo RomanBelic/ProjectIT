@@ -173,7 +173,7 @@ public class Utilities {
 	
 	/**
 	 * Filtre la liste d'objets
-	 * par la valeur d'une propriete.
+	 * par la valeur d'une propriete. <br>
 	 * Dans les listes generiques il faut utiliser "value" comme argument de propriete
 	 * @param  lstIn la liste d'entree
 	 * @param  fieldName la propriete de classe 

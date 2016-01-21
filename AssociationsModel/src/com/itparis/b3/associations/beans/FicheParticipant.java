@@ -1,20 +1,19 @@
 package com.itparis.b3.associations.beans;
-/*
- * Classe FicheParticipant est un modele de donnees;
- * Sert a representer la fiche des participants d'association;
- * Elle a la meme structure que la table "ficheparticipant" dans la BDD;
- * Proprietes de la Classe : 
-	- int    id;
-	- int    idUser;
-	- int    idAssoc;
-	- int    anciennete;
-	- String dateInscription;
-	- String dateDesinscription;
-	- String notes;
+/**
+ * Classe FicheParticipant est un modele de donnees;<br>
+ * Sert a representer la fiche des participants d'association;<br>
+ * Elle a la meme structure que la table "ficheparticipant" dans la BDD;<br>
+ * Proprietes de la Classe : <br>
+	- int    id;<br>
+	- int    idUser;<br>
+	- int    idAssoc;<br>
+	- int    anciennete;<br>
+	- String dateInscription;<br>
+	- String dateDesinscription;<br>
+	- String notes;<br>
 	
 	+ User utilisateur;
  * */
-
 public class FicheParticipant {
 	
 	private int    id;

@@ -1,10 +1,10 @@
 package com.itparis.b3.associations.common;
 import com.itparis.b3.associations.common.Table.*;
 
-/* Classe BD;
- * Contient les Requetes parametrees
+/** Classe BD;<br>
+ * Contient les Requetes parametrees<br>
+ * Contient Objets {@link Table}<br>
  * */
-
 public final class DB {
 	
 	public static final String DBNullValue = "NULL";

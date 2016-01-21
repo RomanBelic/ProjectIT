@@ -12,13 +12,11 @@ import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized.Parameter;
 
 import com.itparis.b3.associations.apprun.Entry;
-import com.itparis.b3.associations.beans.Association;
 import com.itparis.b3.associations.beans.AssociationEvent;
-import com.itparis.b3.associations.beans.FicheParticipant;
 import com.itparis.b3.associations.metier.EventMetier;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EvenDAOTest {
+public class EventDAOTest {
 
 	@Parameter
 	Entry e = new Entry ();
@@ -61,6 +59,39 @@ public class EvenDAOTest {
 
 		assertEquals(null, EventMetier.getParticipantEvent(999,999,999).utilisateur.getNom());
 	}
+	
+	@Test
+	public void T5_insertNewEvent () {
+		assertEquals(1, EventMetier.insertNewEvent("2016-01-20", "Programmation", "Pratique de l'Objective C", 
+													6, 2));
+	}
+	
+	@Test
+	public void T6_insertParticipantEvent() {
+		event =  EventMetier.getListAssociationEvents(2, "Programmation", "2016-01-20", "").get(0);
+		
+		assertEquals(1, EventMetier.insertNewParticipantEvent(2, event.getId(), 4));
+		
+		System.out.println(event.getLibelleEvent());
+	}
+	
+	@Test
+	public void T7_deleteParticipantEvent () {
+		event =  EventMetier.getListAssociationEvents(2, "Programmation", "2016-01-20", "").get(0);
+		
+		assertEquals(1, EventMetier.deleteParticipantEvent(4, event.getId(), 2));
+		
+	}
+	
+	@Test
+	public void T8_deleteEvent () {
+		event =  EventMetier.getListAssociationEvents(2, "Programmation", "2016-01-20", "").get(0);
+		
+		assertEquals(1, EventMetier.deleteAssociationEvent(event.getId()));
+	}
+	
+	
+	
 	
 	
 

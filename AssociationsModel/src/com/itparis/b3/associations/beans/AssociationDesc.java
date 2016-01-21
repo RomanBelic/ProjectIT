@@ -1,16 +1,15 @@
 package com.itparis.b3.associations.beans;
-/*
- * Classe AssociationDesc est un modele de donnees;
- * Sert a representer la description des associations;
- * Elle a la meme structure que la table "associationdescription" dans la BDD;
- * Proprietes de la Classe : 
-    - int id;
-    - int idPresident;
-    - int nbParticipant;
-    - String nomAssoc;
-    - String description;
+/**
+ * Classe AssociationDesc est un modele de donnees;<br>
+ * Sert a representer la description des associations;<br>
+ * Elle a la meme structure que la table "associationdescription" dans la BDD;<br>
+ * Proprietes de la Classe : <br>
+    - int id;<br>
+    - int idPresident;<br>
+    - int nbParticipant;<br>
+    - String nomAssoc;<br>
+    - String description;<br>
  * */
-
 public class AssociationDesc {
 
 	private int    id;

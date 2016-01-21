@@ -10,13 +10,18 @@ import java.util.Map;
 
 import com.itparis.b3.associations.bin.Connexion;
 
-/*
- * Classe ReqMetier;
- * Contient des methodes DAO parametrees;
+/**
+ * Classe ReqMetier;<br>
+ * Contient des methodes DAO parametrees;<br>
  * */
-
 public class ReqMetier {
-	
+	/**
+	 * Executes simple query of update type<br>
+	 * Returns number of affected lines <br>
+	 * Parameters needed : a query (String)
+	 * @param req : String
+	 * @return rows : int
+	 */
 	public static int executeUpdate(String req) {
 		int rows = 0;
 		Connection con = null;
@@ -45,7 +50,15 @@ public class ReqMetier {
 		} catch (Exception e) {}
 		return rows;
 	}
-
+	
+	/**
+	 * Executes prepared query of update type <br>
+	 * Parameters needed : a prepared query with set up params, a HashMap < Integer,Object >, 
+	 * where key (int) is parameter's index and value (object) is parameter's value 
+	 * @param req : String <br>
+	 * @param params : HashMap <Integer, Object> <br>
+	 * @return rows : int <br>
+	 */
 	public static int executePreparedQuery(String req, HashMap<Integer, Object> params) {
 		int rows = 0;
 		Connection con = null;
@@ -78,7 +91,16 @@ public class ReqMetier {
 		} catch (Exception e) {}
 		return rows;
 	}
-
+/**
+ * Executes a parametered query of update type <br>
+ * Parameters needed : table name, HashMap <String String> where key (String) is field's name and 
+ * value(String) is its new value,<br>
+ * paramsWhere(String) contains WHERE clause defining conditions for an UPDATE <br>
+ * @param table : String
+ * @param paramsTable : HashMap < String, String >
+ * @param paramWhere : String 
+ * @return rows : int
+ */
 	public static int executeParameteredUpdate(String table, HashMap<String, String> paramsTable, String paramWhere) {
 		int rows = 0;
 		String req = "Update " + table + " SET ";
@@ -118,7 +140,15 @@ public class ReqMetier {
 		}
 		return rows;
 	}
-
+	
+	/**
+	 * Executes a parametered query of delete type <br>
+	 * Parameters needed : table name, <br>
+	 * paramsWhere(String) contains WHERE clause defining conditions for DELETE statement <br>
+	 * @param table : String
+	 * @param paramWhere : String 
+	 * @return rows : int
+	 */
 	public static int executeParameteredDelete(String table, String paramWhere) {
 		int rows = 0;
 		String req = "Delete From " + table + " Where 1=1 ";
@@ -150,6 +180,15 @@ public class ReqMetier {
 		return rows;
 	}
 	
+	/**
+	 * Executes a parametered query of insert type <br>
+	 * Parameters needed : table name, <br>
+	 * {@link HashMap}< String, String > paramsTable where key(String) is column name and value (String) 
+	 * new value to be inserted in the column <br>
+	 * @param table : String
+	 * @param paramsTable : HashMap < String,String >
+	 * @return rows : int
+	 */
 	public static int executeParameteredInsert(String table, HashMap<String,String>paramsTable) {
 		int rows = 0;
 		Connection con = null;
@@ -198,7 +237,12 @@ public class ReqMetier {
 		} catch (Exception e) {}
 		return rows;
 	}
-	
+	/**
+	 * Executes batch of multiple queries<br>
+	 * Parameters needed : a List of queries to be executed in the batch <br>
+	 * @param lstQueries : {@link List}<{@link String}><br>
+	 * @return rows : int
+	 */
 	public static int executeBatch (List<String>lstQueries) {
 		Connection con = null;
 		Statement st = null;

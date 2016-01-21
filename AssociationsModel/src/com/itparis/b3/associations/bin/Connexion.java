@@ -2,9 +2,10 @@ package com.itparis.b3.associations.bin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/*
- * Classe Connexion;
- * Contient les methodes et parametres de connexion a la BDD;
+/**
+ * Classe Connexion;<br>
+ * Contient les methodes et parametres de connexion a la BDD;<br>
+ * @return instance {@link Connection}<br>
  * */
 public final class Connexion  {
 	

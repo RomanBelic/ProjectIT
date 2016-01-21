@@ -29,7 +29,6 @@ public class AuthDAOTest {
 	
 	@Test
 	public void T2_getUserAuthDataDAOTest() {
-		assertEquals (1, AuthMetier.getUserAuthData("log", "mdp").getIdUser());
+		assertEquals (2, AuthMetier.getUserAuthData("login1", "mdp1").getIdUser());
 	}
-
 }

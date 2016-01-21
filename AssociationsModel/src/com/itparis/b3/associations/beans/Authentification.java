@@ -1,14 +1,13 @@
 package com.itparis.b3.associations.beans;
-/*
- * Classe Authentification est un modele de donnees;
- * Sert a representer les donnees d'authentification des utilisateurs;
- * Elle a la meme structure que la table "authentification" dans la BDD;
- * Proprietes de la Classe : 
-	- String Log;
-	- String Pass;
-	- int    idUser;
+/**
+ * Classe Authentification est un modele de donnees;<br>
+ * Sert a representer les donnees d'authentification des utilisateurs;<br>
+ * Elle a la meme structure que la table "authentification" dans la BDD;<br>
+ * Proprietes de la Classe :<br> 
+	- String Log;<br>
+	- String Pass;<br>
+	- int    idUser;<br>
  * */
-
 public class Authentification {
 	
 	private String Log;

@@ -4,8 +4,11 @@ import java.util.HashMap;
 
 import com.itparis.b3.associations.bin.Connexion;
 import com.itparis.b3.associations.common.Utilities;
-import com.itparis.b3.associations.metier.AssociationMetier;
 
+/**
+ * @role Entry Point to application
+ *       <br> Contains app Main() method, sets connection parameters to SQL database
+ */
 public class Entry {
 	
 	public void setConnectionArgs () {
@@ -23,9 +26,6 @@ public class Entry {
 		
 		Entry entry = new Entry ();
 		entry.setConnectionArgs ();
-		
-		int i = AssociationMetier.insertAssociation("BDA", 2, "Bureau des arts", 50, 
-			     "Association des arts et creativite");
 		
 	}
 	

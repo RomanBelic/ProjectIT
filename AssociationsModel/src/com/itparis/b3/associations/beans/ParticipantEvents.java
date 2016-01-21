@@ -1,19 +1,18 @@
 package com.itparis.b3.associations.beans;
-/*
- * Classe ParticipantEvents est un modele de donnees;
- * Sert a representer les participants d'evenement;
- * Elle a la meme structure que la table "participantsevents" dans la BDD;
- * Proprietes de la Classe : 
-	- int idAssoc;
-    - int idUser;
-    - int presence;
-    - int idEvent;
-    - String presenceString;
+/**
+ * Classe ParticipantEvents est un modele de donnees;<br>
+ * Sert a representer les participants d'evenement;<br>
+ * Elle a la meme structure que la table "participantsevents" dans la BDD;<br>
+ * Proprietes de la Classe : <br>
+	- int idAssoc;<br>
+    - int idUser;<br>
+    - int presence;<br>
+    - int idEvent;<br>
+    - String presenceString;<br>
 
-    + User utilisateur;
-    + TypeUser userType;
+    + User utilisateur;<br>
+    + TypeUser userType;<br>
  * */
-
 public class ParticipantEvents {
 	
 	private int idAssoc;

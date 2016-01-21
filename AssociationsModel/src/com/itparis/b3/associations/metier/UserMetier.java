@@ -242,6 +242,7 @@ public class UserMetier {
 	public static int deleteUser (int idUser){
 		List<Object> lstPValues = new ArrayList<Object>();
 		lstPValues.add(idUser);
+		lstPValues.add(idUser);
 		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
 		String req = Queries.DeleteUserAndAuthPQuery;
 		int rows = ReqMetier.executePreparedQuery(req, params);

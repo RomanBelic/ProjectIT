@@ -1,21 +1,20 @@
 package com.itparis.b3.associations.beans;
-/*
- * Classe AssociationEvent est un modele de donnees;
- * Sert a representer l'evenement des associations;
- * Elle a la meme structure que la table "associationevents" dans la BDD;
- * Proprietes de la Classe : 
-    - int id;
-    - int idAssoc;
-    - int nbParticipant;
-    - String dateEvent;
-    - String libelleEvent;
-    - String descEvent;
-    + List<ParticipantEvents>lstParticipant;
- * */
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Classe AssociationEvent est un modele de donnees;<br>
+ * Sert a representer l'evenement des associations;<br>
+ * Elle a la meme structure que la table "associationevents" dans la BDD;<br>
+ * Proprietes de la Classe : <br>
+    - int id;<br>
+    - int idAssoc;<br>
+    - int nbParticipant;<br>
+    - String dateEvent;<br>
+    - String libelleEvent;<br>
+    - String descEvent;
+    + List<{@link ParticipantEvents}>lstParticipant;<br>
+ * */
 public class AssociationEvent {
 	
 	private int    id;
