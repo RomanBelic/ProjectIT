@@ -78,7 +78,6 @@ public class EventDAOTest {
 		event =  EventMetier.getListAssociationEvents(2, "Programmation", "2016-01-20", "").get(0);
 		
 		assertEquals(1, EventMetier.deleteParticipantEvent(4, event.getId(), 2));
-		
 	}
 	
 	@Test

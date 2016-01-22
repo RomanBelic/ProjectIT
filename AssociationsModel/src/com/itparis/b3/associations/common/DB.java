@@ -18,7 +18,17 @@ public final class DB {
 	public static final Table Authentification= new AuthentificationTable ("authentification","n");
 	public static final Table FicheParticipant = new FicheParticipantTable ("ficheparticipant","f");
 	public static final Table ParticipantEvents = new ParticipantEventsTable ("participantsevents","p");
-	
+	/**
+	 * Example of usage : makeJoin ("INNER", Utilisateurs, TypeUtilisateurs, idType, id) <br>
+	 * will return : "INNER JOIN typeutilisateurs t ON utilisateurs.idType = t.id " <br>
+	 * First table must be specified in SQL query before calling this method <br>
+	 * @param JoinType : String
+	 * @param Table1 : Table
+	 * @param Table2 : Table
+	 * @param idKey1 : String
+	 * @param idKey2 : String
+	 * @return str : String
+	 */
 	public static String makeJoin (String JoinType, Table Table1, Table Table2, String idKey1, String idKey2) {
 		String str = " " + JoinType.toUpperCase() + " JOIN " + Table2 + " " + Table2.alias + " ON " +
 			               Table1.alias + "." + idKey1 + "="+Table2.alias + "." + idKey2 + " ";
@@ -154,23 +164,50 @@ public final class DB {
 		{
 		  return " SELECT IF (EXISTS " +
 		  		 "(SELECT " + field + " FROM " + table + " WHERE " + field + " = ? ), 1, 0) " +
-		  		 "as Existence; ";
+		  		 " AS Existence; ";
 		}
 				
-
+		public static final String UpdateAssociation = 
+				" UPDATE "+Association+" SET libelleAssociation = ? WHERE id = ? ";
 		
+		public static final String UpdateAssociationDescription = 
+				" UPDATE "+AssociationDesc+" SET idPresident = ?, nomAssoc = ?, nbParticipant = ?, "+
+			    " Description = ? " + 
+				" WHERE id = ? ";
 		
+		public static final String UpdateAssociationEvents = 
+				" UPDATE " +AssociationEvents+" SET dateEvent = ?, LibelleEvent = ?, "+
+			    " descriptionEvent = ?, nbParticipant = ? " +
+				" WHERE id = ? ";
 		
+		public static final String UpdateAuthentification = 
+				" UPDATE "+Authentification+" SET Login = ?, MDP = ? WHERE idUtilisateur = ? ";
 		
+		public static final String UpdateFicheParticipantById = 
+				" UPDATE " +FicheParticipant+" SET dateInscription = ?, dateDesinscription = ?, "+
+			    " Notes = ?, Anciennete = ? " +
+				" WHERE id = ? ";
 		
+		public static final String UpdateFicheParticipantByIdUserAndIdAssoc = 
+				" UPDATE " +FicheParticipant+" SET dateInscription = ?, dateDesinscription = ?, "+
+			    " Notes = ?, Anciennete = ? " +
+				" WHERE idUtilisateur = ? AND idAssociation = ? ";
 		
+		public static final String UpdateParticipantsEvents = 
+				" UPDATE "+ParticipantEvents+" SET Presence = ? WHERE " +
+				" idUtilisateur = ? AND idEvenement = ? AND idAssociation = ? ";
 		
-			
+		public static final String UpdateTypeUtilisateur = 
+				" UPDATE "+TypeUtilisateurs+" SET Libelle = ? WHERE id = ? ";
 		
+		public static final String UpdateUtilisateur = 
+				" UPDATE "+Utilisateurs+" nomUtilisateur = ?, prenomUtilisateur = ?, " +
+				" adrUtilisateur = ?, telUtilisateur = ? " +
+		        " WHERE id = ? And Statut = 1 ";
 		
-				
-
-		
-		
+		public static final String UpdateUtilisateurForAdmin = 
+				" UPDATE "+Utilisateurs+" SET idType = ?, nomUtilisateur = ?, prenomUtilisateur = ?, " +
+				" adrUtilisateur = ?, telUtilisateur = ?, Statut = ? " +
+		        " WHERE id = ? ";
 	}
 }

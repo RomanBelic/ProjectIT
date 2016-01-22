@@ -84,7 +84,7 @@ public class AssociationDAO {
 		    Utilities.setSQLParams(st, params);
 		    
 		    rs = st.executeQuery();
-		    while (rs.next()) {		            
+		    if (rs.next()) {		            
 		    	a = RemplirAssociation (rs);
 	           	}
 		}

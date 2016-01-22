@@ -138,7 +138,7 @@ public class UserDAO {
 		    Utilities.setSQLParams(st, params);
 		    
 		    rs = st.executeQuery();
-		    while (rs.next()) {		            
+		    if (rs.next()) {		            
 		    	u = RemplirUser (rs);
 	           	}
 		}
@@ -209,7 +209,7 @@ public class UserDAO {
 	    	Utilities.setSQLParams(st, params);
 	    	
 	        rs = st.executeQuery();
-	        while (rs.next()) {
+	        if (rs.next()) {
 	            fp = RemplirFicheParticipant (rs);
 	        }
 	    } 
@@ -281,7 +281,7 @@ public class UserDAO {
 	    	Utilities.setSQLParams(st, params);
 	    	
 	        rs = st.executeQuery();
-	        while (rs.next()) {
+	        if (rs.next()) {
 	            u = RemplirSimpleUser (rs);
 	        }
 	    } 
@@ -356,7 +356,7 @@ public class UserDAO {
 	    	Utilities.setSQLParams(st, params);
 	    	
 	        rs = st.executeQuery();
-	        while (rs.next()) {
+	        if (rs.next()) {
 	        	t.setId(rs.getInt("id"));
 	        	t.setLibelle(rs.getString("Libelle"));
 	        }

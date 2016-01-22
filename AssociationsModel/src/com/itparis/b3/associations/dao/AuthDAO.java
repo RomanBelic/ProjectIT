@@ -55,7 +55,7 @@ public class AuthDAO {
 			
 		    rs = st.executeQuery();
 		    
-		    while (rs.next()) {
+		    if (rs.next()) {
 		    	auth.setIdUser(rs.getInt("idUtilisateur"));
 		    	auth.setLog(rs.getString("Login"));
 		    	auth.setPass(rs.getString("MDP"));

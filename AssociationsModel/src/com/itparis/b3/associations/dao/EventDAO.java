@@ -110,7 +110,7 @@ public ParticipantEvents getParticipantEvents (String filtre, HashMap<Integer,Ob
 		    Utilities.setSQLParams(st, params);
 		    
 		    rs = st.executeQuery();
-		    while (rs.next()) {		            
+		    if (rs.next()) {		            
 		    	pe = RemplirParticipant (rs);
 	           	}
 		}
@@ -182,7 +182,7 @@ public ParticipantEvents getParticipantEvents (String filtre, HashMap<Integer,Ob
 		    Utilities.setSQLParams(st, params);
 		    
 		    rs = st.executeQuery();
-		    while (rs.next()) {		            
+		    if (rs.next()) {		            
 		    	   ae = RemplirEvent (rs);
 	           	}
 		}

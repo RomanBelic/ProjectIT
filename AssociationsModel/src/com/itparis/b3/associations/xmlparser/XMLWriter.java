@@ -29,7 +29,13 @@ import com.itparis.b3.associations.beans.FicheParticipant;
 import com.itparis.b3.associations.beans.ParticipantEvents;
 import com.itparis.b3.associations.beans.TypeUser;
 import com.itparis.b3.associations.beans.User;
-
+/**
+ * Serialize une instance de Classe <br>
+ * Marche que avec les objets et non des lists <br>
+ * Prevu que pour les Classes du package {@link com.itparis.b3.associations.beans }
+ * @param o : {@link Object }
+ * @return fname : String
+ */
 public class XMLWriter {
 
 	private String fname = "";
@@ -48,6 +54,17 @@ public class XMLWriter {
 	    authorGen = System.getProperty("user.name");
 	    descGen = "simple xml generator in study project";
 		wrapper = o;
+	}
+	
+	@SuppressWarnings("unused")
+	private String getExtension (String fileName) {
+		String extension = "";
+
+		int i = fileName.lastIndexOf('.');
+		if (i > 0) {
+		    extension = fileName.substring(i+1);
+		}
+		return extension;
 	}
 	
 	private HashMap <String,String> generateData (Object o) {
@@ -128,7 +145,8 @@ public class XMLWriter {
 			root.appendChild(head);
 			
 			Element filename = doc.createElement("filename");
-			filename.appendChild(doc.createTextNode(fname));
+			
+			filename.appendChild(doc.createTextNode(fname + ".xml"));
 			head.appendChild(filename);
             
 			Element dategen = doc.createElement("date");
