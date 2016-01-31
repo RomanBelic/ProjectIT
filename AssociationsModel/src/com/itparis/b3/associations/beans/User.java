@@ -24,6 +24,7 @@ public class User {
 	private String Telephone;
 	private int Statut;
 	private String StatutString;
+	private String logoImg;
 	
 	public List<Association> assoc =  new ArrayList<Association>();
 	public TypeUser type = new TypeUser ();
@@ -81,5 +82,11 @@ public class User {
 
 	public String getStatutString() {
 		return StatutString;
+	}
+	public String getLogoImg() {
+		return logoImg;
+	}
+	public void setLogoImg(String logoImg) {
+		this.logoImg = logoImg;
 	}
 }

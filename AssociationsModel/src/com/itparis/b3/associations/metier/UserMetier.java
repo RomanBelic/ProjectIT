@@ -258,6 +258,46 @@ public class UserMetier {
 		return rows;
 	}
 	
+	public static int updateTypeUser (String libelleType, int id){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(libelleType);
+		lstPValues.add(id);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateTypeUtilisateur;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int updateUser (String nomUser, String prenomUser, String adrUser, String telUser,
+								  int id){
+								 
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(nomUser);
+		lstPValues.add(prenomUser);
+		lstPValues.add(adrUser);
+		lstPValues.add(telUser);
+		lstPValues.add(id);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateUtilisateur;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int updateUserForAdmin (int idType, String nomUser, String prenomUser,
+											String adrUser, String telUser, int statut, int id){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(idType);
+		lstPValues.add(nomUser);
+		lstPValues.add(prenomUser);
+		lstPValues.add(adrUser);
+		lstPValues.add(statut);
+		lstPValues.add(id);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateUtilisateurForAdmin;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+
 	
 	
 	

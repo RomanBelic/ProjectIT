@@ -120,10 +120,54 @@ public class AssociationMetier {
 		return rows;
 	}
 	
+	public static int updateAssociation (int id, String libelle, int idPresident, String nomAssoc,
+										 int nbParticipant, String description){	
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(id);
+		lstPValues.add(libelle);
+		lstPValues.add(idPresident);
+		lstPValues.add(nomAssoc);
+		lstPValues.add(nbParticipant);
+		lstPValues.add(description);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateAssociation;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	public static int updateParticipantByIdFicheAndIdAssoc (String dateInscription, String dateDesinscription, String notes,
+															int anciennete, int idUser, int idAssoc){	
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(dateInscription);
+		lstPValues.add(dateDesinscription);
+		lstPValues.add(notes);
+		lstPValues.add(anciennete);
+		lstPValues.add(idUser);
+		lstPValues.add(idAssoc);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateFicheParticipantByIdUserAndIdAssoc;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	public static int updateParticipantAssoc (String dateInscription, String dateDesinscription, String notes,
+			int anciennete, int idFiche){		
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(dateInscription);
+		lstPValues.add(dateDesinscription);
+		lstPValues.add(notes);
+		lstPValues.add(anciennete);
+		lstPValues.add(idFiche);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateFicheParticipantById;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
 	
 	
 	
 	
 	
-
+	
+	
+	
 }

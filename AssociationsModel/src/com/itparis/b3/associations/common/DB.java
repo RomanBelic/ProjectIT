@@ -166,14 +166,12 @@ public final class DB {
 		  		 "(SELECT " + field + " FROM " + table + " WHERE " + field + " = ? ), 1, 0) " +
 		  		 " AS Existence; ";
 		}
-				
+
 		public static final String UpdateAssociation = 
-				" UPDATE "+Association+" SET libelleAssociation = ? WHERE id = ? ";
-		
-		public static final String UpdateAssociationDescription = 
+				" SET @id = ?;" + 
+				" UPDATE "+Association+" SET libelleAssociation = ? WHERE id = @id; " +
 				" UPDATE "+AssociationDesc+" SET idPresident = ?, nomAssoc = ?, nbParticipant = ?, "+
-			    " Description = ? " + 
-				" WHERE id = ? ";
+			    " Description = ? WHERE id = @id; ";	
 		
 		public static final String UpdateAssociationEvents = 
 				" UPDATE " +AssociationEvents+" SET dateEvent = ?, LibelleEvent = ?, "+

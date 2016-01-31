@@ -45,5 +45,19 @@ public class AuthMetier {
 		return rows;
 	}
 	
+	public static int updateAuthentification  (int idUser, String login, String mdp){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(login);
+		lstPValues.add(mdp);
+		lstPValues.add(idUser);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateAuthentification;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	
+	
+	
 
 }

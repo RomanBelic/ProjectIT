@@ -160,6 +160,38 @@ public class EventMetier {
 		return rows;
 	}
 	
+	public static int updateEvent (String dateEvent, String libelleEvent, String descEvent, 
+									int nbParticipant, int id){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(dateEvent);
+		lstPValues.add(libelleEvent);
+		lstPValues.add(descEvent);
+		lstPValues.add(nbParticipant);
+		lstPValues.add(id);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateAssociationEvents;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	
+	public static int updateParticipantEvent (int presenceInt, int idUtilisateur, int idEvenement,
+			                                   int idAssociation){
+		List<Object> lstPValues = new ArrayList<Object>();
+		lstPValues.add(presenceInt);
+		lstPValues.add(idUtilisateur);
+		lstPValues.add(idEvenement);
+		lstPValues.add(idAssociation);
+		HashMap<Integer,Object> params = Utilities.putParams(lstPValues);
+		String req = Queries.UpdateParticipantsEvents;
+		int rows = ReqMetier.executePreparedQuery(req, params);
+		return rows;
+	}
+	
+	
+	
+	
+	
 	
 
 }

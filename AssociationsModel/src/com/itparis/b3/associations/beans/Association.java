@@ -13,6 +13,7 @@ public class Association {
 	
 	private int    id;
 	private String Libelle;
+	private String logoImg;
 	
 	public AssociationDesc desc = new AssociationDesc();
 	
@@ -27,5 +28,11 @@ public class Association {
 	}
 	public void setLibelle(String libelle) {
 		Libelle = libelle;
+	}
+	public String getLogoImg() {
+		return logoImg;
+	}
+	public void setLogoImg(String logoImg) {
+		this.logoImg = logoImg;
 	}
 }
